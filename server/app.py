@@ -2,7 +2,6 @@ from flask import Flask, request, session, jsonify
 from werkzeug.security import generate_password_hash
 from models import User
 from config import app, db, bcrypt
-from datetime import datetime
 from sqlalchemy.exc import IntegrityError
 
 @app.post('/api/users')
@@ -27,8 +26,8 @@ def check_session():
     if user_id:
         user = User.query.filter_by(id=user_id).first()
         if user:
-            return user.to_dict(), 200
-    return {}, 204
+            return jsonify(user.to_dict()), 200
+    return jsonify({}), 204  # Explicitly return an empty JSON object with a 204 status
 
 @app.post('/api/login')
 def login():
@@ -44,10 +43,6 @@ def login():
 def logout():
     session.pop('user_id', None)
     return {}, 204
-
-@app.get('/')
-def index():
-    pass
 
 if __name__ == '__main__':
     app.run(port=5555, debug=True)

@@ -10,6 +10,7 @@ function NavBar({ currentUser, handleLogout }) {
           <NavLink to="/">Home</NavLink>
           <NavLink to="/lifts">Submit Lifts</NavLink>
           <NavLink to="/tracker">Tracker</NavLink>
+          <NavLink to="/workouts">Workouts</NavLink>
           {/* <NavLink to="/newpatient">New Patient</NavLink> */}
         </>
       ) : (

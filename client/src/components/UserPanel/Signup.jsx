@@ -9,8 +9,8 @@ function Signup({ setCurrentUser }) {
 
   function handleSubmit(e) {
     e.preventDefault();
-
-    fetch('/api/users', {
+  
+    fetch('http://localhost:5555/api/users', {  // Update the URL to include the correct backend URL and port
       method: 'POST',
       headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
       body: JSON.stringify({ username, password })

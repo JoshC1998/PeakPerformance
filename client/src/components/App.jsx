@@ -1,27 +1,34 @@
-import React, { useState, useEffect } from "react";
-import { Route, Routes, Navigate } from "react-router-dom";
-import Login from './UserPanel/Login';
-import Signup from './UserPanel/Signup';
+import React, { useState, useEffect } from 'react';
+import { Routes, Route, Navigate } from 'react-router-dom';
 import NavBar from './NavBar';
 import UserDetails from './UserPanel/UserDetails';
-import SubmitLift from './UserPanel/SubmitLifts'; 
-import Tracker from './UserPanel/Tracker'
+import Login from './UserPanel/Login';
+import Signup from './UserPanel/Signup';
+import SubmitLift from './UserPanel/SubmitLifts';
+import Tracker from './UserPanel/Tracker';
+import Workouts from './UserPanel/Workouts';
+// import Scoreboard from './UserPanel/Scoreboard'; // Commented out
+
+const API_URL = 'http://localhost:5555'; // Replace with your actual API URL
 
 function App() {
-  const [search, setSearch] = useState('');
   const [currentUser, setCurrentUser] = useState(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetch('/api/check_session')
+    fetch(`${API_URL}/api/check_session`)
       .then(res => {
-        if (res.ok) {
-          return res.json();
+        if (res.status === 204) {
+          return {}; // No content, so return an empty object
         }
-        throw new Error('Failed to check session');
+        return res.json(); // Process JSON response if status is not 204
       })
       .then(data => {
-        setCurrentUser(data);
+        if (data.user) {
+          setCurrentUser(data.user);
+        } else {
+          setCurrentUser(null); // No user found
+        }
         setLoading(false);
       })
       .catch(error => {
@@ -31,7 +38,7 @@ function App() {
   }, []);
 
   function handleLogout() {
-    fetch('/api/logout', { method: 'DELETE' })
+    fetch(`${API_URL}/api/logout`, { method: 'DELETE' })
       .then(res => {
         if (res.ok) {
           setCurrentUser(null);
@@ -50,11 +57,19 @@ function App() {
     <div className='app App'>
       <NavBar currentUser={currentUser} handleLogout={handleLogout} />
       <Routes>
-        <Route path="/" element={currentUser ? <UserDetails currentUser={currentUser} setCurrentUser={setCurrentUser} /> : <Navigate to="/login" />} />
+        <Route path="/" element={
+          currentUser ? 
+          <UserDetails currentUser={currentUser} setCurrentUser={setCurrentUser} /> : 
+          <>
+            {/* <Scoreboard /> */}
+            <Navigate to="/login" />
+          </>
+        } />
         <Route path="/login" element={<Login setCurrentUser={setCurrentUser} />} />
         <Route path="/signup" element={<Signup setCurrentUser={setCurrentUser} />} />
-        <Route path="/lifts" element={currentUser ? <SubmitLift search={search} /> : <Navigate to="/login" />} />
-        <Route path="/tracker" element={currentUser ? <Tracker search={search} /> : <Navigate to="/login" />} />
+        <Route path="/lifts" element={currentUser ? <SubmitLift /> : <Navigate to="/login" />} />
+        <Route path="/tracker" element={currentUser ? <Tracker /> : <Navigate to="/login" />} />
+        <Route path="/workouts" element={currentUser ? <Workouts /> : <Navigate to="/login" />} />
       </Routes>
     </div>
   );

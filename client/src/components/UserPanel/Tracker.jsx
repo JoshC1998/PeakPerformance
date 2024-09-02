@@ -5,7 +5,10 @@ import 'chart.js/auto'; // Necessary for using Chart.js
 function Tracker() {
   const [weight, setWeight] = useState('');
   const [lift, setLift] = useState('');
+  const [reps, setReps] = useState('');
+  const [liftType, setLiftType] = useState('bench');
   const [liftsData, setLiftsData] = useState([]);
+  const [filter, setFilter] = useState('all');
 
   function handleSubmit(e) {
     e.preventDefault();
@@ -13,30 +16,41 @@ function Tracker() {
     const newEntry = {
       weight: parseFloat(weight),
       lift: parseFloat(lift),
+      reps: parseFloat(reps),
+      liftType: liftType,
       date: new Date().toLocaleDateString(),
     };
 
     setLiftsData([...liftsData, newEntry]);
     setWeight('');
     setLift('');
+    setReps('');
   }
 
+  const filteredData = filter === 'all'
+    ? liftsData
+    : liftsData.filter(entry => entry.liftType === filter);
+
+  const createDataset = (label, key, color) => ({
+    label,
+    data: filteredData.map(entry => ({
+      x: entry.date,
+      y: entry[key],
+    })),
+    borderColor: color,
+    borderWidth: 2,
+    fill: false,
+  });
+
   const data = {
-    labels: liftsData.map(entry => entry.date),
+    labels: filteredData.map(entry => entry.date),
     datasets: [
-      {
-        label: 'Weight',
-        data: liftsData.map(entry => entry.weight),
-        borderColor: 'rgba(75,192,192,1)',
-        fill: false,
-      },
-      {
-        label: 'Lift',
-        data: liftsData.map(entry => entry.lift),
-        borderColor: 'rgba(153,102,255,1)',
-        fill: false,
-      },
-    ],
+      createDataset('Weight (lbs)', 'weight', 'rgba(75,192,192,1)'),
+      createDataset('Reps', 'reps', 'rgba(153,102,255,1)'),
+      createDataset('Bench Press Weight', 'weight', 'rgba(75,192,192,0.5)'),
+      createDataset('Deadlift Weight', 'weight', 'rgba(153,102,255,0.5)'),
+      createDataset('Squat Weight', 'weight', 'rgba(255,99,132,0.5)'),
+    ].filter(dataset => dataset.data.length > 0),
   };
 
   return (
@@ -65,9 +79,47 @@ function Tracker() {
             />
           </label>
         </div>
+        <div>
+          <label>
+            Reps:
+            <input
+              type="number"
+              value={reps}
+              onChange={(e) => setReps(e.target.value)}
+              required
+            />
+          </label>
+        </div>
+        <div>
+          <label>
+            Lift Type:
+            <select
+              value={liftType}
+              onChange={(e) => setLiftType(e.target.value)}
+            >
+              <option value="bench">Bench Press</option>
+              <option value="deadlift">Deadlift</option>
+              <option value="squat">Squat</option>
+            </select>
+          </label>
+        </div>
         <button type="submit">Submit</button>
       </form>
-      {liftsData.length > 0 && (
+      <div>
+        <label>
+          Filter by Lift Type:
+          <select
+            value={filter}
+            onChange={(e) => setFilter(e.target.value)}
+          >
+            <option value="all">All</option>
+            <option value="bench">Bench Press</option>
+            <option value="deadlift">Deadlift</option>
+            <option value="squat">Squat</option>
+          </select>
+        </label>
+      </div>
+      {filteredData.length > 0 && (
         <div>
           <h3>Progress Graph</h3>
           <Line data={data} />
