@@ -1,13 +1,13 @@
 import React, { useState } from 'react';
 
-const API_URL = 'http://localhost:5555';  // Ensure you have the correct API_URL
+const API_URL = 'http://localhost:5555';  
 
 function SubmitLift() {
   const [liftName, setLiftName] = useState('');
   const [weight, setWeight] = useState('');
   const [video, setVideo] = useState(null);
   const [videoPreview, setVideoPreview] = useState('');
-  const [videoUrl, setVideoUrl] = useState('');
+  const [submittedVideos, setSubmittedVideos] = useState([]);
   const [message, setMessage] = useState('');
   const [loading, setLoading] = useState(false);
 
@@ -15,7 +15,7 @@ function SubmitLift() {
     const file = e.target.files[0];
     if (file) {
       setVideo(file);
-      setVideoPreview(URL.createObjectURL(file)); // Set video preview
+      setVideoPreview(URL.createObjectURL(file)); 
     }
   }
 
@@ -49,8 +49,7 @@ function SubmitLift() {
       }
 
       const uploadResult = await uploadResponse.json();
-      console.log('Video URL:', uploadResult.url); // Log the video URL
-      setVideoUrl(uploadResult.url); // Set the video URL for display
+      setMessage('Video uploaded successfully!');
       submitLiftDetails(uploadResult.url);
     } catch (error) {
       console.error('Error uploading video:', error);
@@ -77,6 +76,10 @@ function SubmitLift() {
       .then((data) => {
         if (data.message) {
           setMessage('Lift submitted successfully!');
+          setSubmittedVideos((prev) => [
+            ...prev,
+            { videoUrl, liftName, weight }, // Store the video URL along with the lift type and weight
+          ]);
           setLiftName('');
           setWeight('');
           setVideo(null);
@@ -146,19 +149,27 @@ function SubmitLift() {
             </video>
           </div>
         )}
-        {videoUrl && (
-          <div>
-            <h3>Uploaded Video:</h3>
-            <video width="300" controls>
-              <source src={videoUrl} type="video/mp4" />
-              Your browser does not support the video tag.
-            </video>
-          </div>
-        )}
         <button type="submit" disabled={loading}>
           {loading ? 'Submitting...' : 'Submit Lift'}
         </button>
       </form>
+
+      {submittedVideos.length > 0 && (
+        <div className="submitted-videos">
+          <h3>Submitted Videos</h3>
+          <div style={{ maxHeight: '300px', overflowY: 'scroll' }}>
+            {submittedVideos.map((video, index) => (
+              <div key={index}>
+                <p>{video.liftName} - {video.weight} lbs</p> 
+                <video width="300" controls>
+                  <source src={video.videoUrl} type="video/mp4" />
+                  Your browser does not support the video tag.
+                </video>
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
     </div>
   );
 }
