@@ -1,6 +1,6 @@
 import os
 from flask import Flask
-from flask_cors import CORS
+from flask_cors import CORS  # Import CORS
 from flask_migrate import Migrate
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import MetaData
@@ -23,5 +23,5 @@ db = SQLAlchemy(metadata=metadata)
 migrate = Migrate(app, db)
 db.init_app(app)
 
-CORS(app)
+CORS(app, origins=["http://localhost:5173"], supports_credentials=True)  # Configure CORS
 bcrypt = Bcrypt(app)

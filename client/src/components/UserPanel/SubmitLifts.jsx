@@ -6,8 +6,18 @@ function SubmitLift() {
   const [liftName, setLiftName] = useState('');
   const [weight, setWeight] = useState('');
   const [video, setVideo] = useState(null);
+  const [videoPreview, setVideoPreview] = useState('');
+  const [videoUrl, setVideoUrl] = useState('');
   const [message, setMessage] = useState('');
   const [loading, setLoading] = useState(false);
+
+  function handleVideoChange(e) {
+    const file = e.target.files[0];
+    if (file) {
+      setVideo(file);
+      setVideoPreview(URL.createObjectURL(file)); // Set video preview
+    }
+  }
 
   async function handleSubmit(e) {
     e.preventDefault();
@@ -29,21 +39,19 @@ function SubmitLift() {
       const formData = new FormData();
       formData.append('video', video);
 
-      const response = await fetch(`${API_URL}/upload`, {  // Update with correct upload endpoint
+      const uploadResponse = await fetch(`${API_URL}/upload`, {
         method: 'POST',
         body: formData,
       });
 
-      const textResponse = await response.text(); // Get raw text response
-      console.log('Raw response:', textResponse); // Log the raw response
-
-      if (response.ok) {
-        const result = JSON.parse(textResponse); // Parse JSON only if response is okay
-        submitLiftDetails(result.url);
-      } else {
-        setMessage('Failed to upload video.');
-        setLoading(false);
+      if (!uploadResponse.ok) {
+        throw new Error('Failed to upload video.');
       }
+
+      const uploadResult = await uploadResponse.json();
+      console.log('Video URL:', uploadResult.url); // Log the video URL
+      setVideoUrl(uploadResult.url); // Set the video URL for display
+      submitLiftDetails(uploadResult.url);
     } catch (error) {
       console.error('Error uploading video:', error);
       setMessage('Error uploading video.');
@@ -65,12 +73,14 @@ function SubmitLift() {
       },
       body: JSON.stringify(liftData),
     })
-      .then((res) => {
-        if (res.ok) {
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.message) {
           setMessage('Lift submitted successfully!');
           setLiftName('');
           setWeight('');
           setVideo(null);
+          setVideoPreview(''); // Clear video preview
         } else {
           setMessage('Failed to submit lift.');
         }
@@ -122,11 +132,29 @@ function SubmitLift() {
             <input
               type="file"
               accept="video/*"
-              onChange={(e) => setVideo(e.target.files[0])}
+              onChange={handleVideoChange}
               required
             />
           </label>
         </div>
+        {videoPreview && (
+          <div>
+            <h3>Video Preview:</h3>
+            <video width="300" controls>
+              <source src={videoPreview} type={video.type} />
+              Your browser does not support the video tag.
+            </video>
+          </div>
+        )}
+        {videoUrl && (
+          <div>
+            <h3>Uploaded Video:</h3>
+            <video width="300" controls>
+              <source src={videoUrl} type="video/mp4" />
+              Your browser does not support the video tag.
+            </video>
+          </div>
+        )}
         <button type="submit" disabled={loading}>
           {loading ? 'Submitting...' : 'Submit Lift'}
         </button>

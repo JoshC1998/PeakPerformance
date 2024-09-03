@@ -7,7 +7,6 @@ import Signup from './UserPanel/Signup';
 import SubmitLift from './UserPanel/SubmitLifts';
 import Tracker from './UserPanel/Tracker';
 import Workouts from './UserPanel/Workouts';
-// import Scoreboard from './UserPanel/Scoreboard'; // Commented out
 
 const API_URL = 'http://localhost:5555'; // Replace with your actual API URL
 

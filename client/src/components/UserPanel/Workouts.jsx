@@ -1,8 +1,7 @@
 import React, { useState } from 'react';
 
-// Ensure to replace with your actual OpenAI API endpoint and key
-const API_URL = 'https://api.openai.com/v1/completions';  
-const API_KEY = 'YOUR_API_KEY';  // Replace with your actual API key
+const API_URL = 'https://api.openai.com/v1/chat/completions';  
+const API_KEY = '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';  // Replace with your actual API key
 
 function Workouts() {
   const [goal, setGoal] = useState('');
@@ -31,8 +30,17 @@ function Workouts() {
           'Authorization': `Bearer ${API_KEY}`,
         },
         body: JSON.stringify({
-          model: "text-davinci-003",  // Replace with the model you are using
-          prompt: `Create a detailed workout plan for someone aiming for ${goal}. Focus on ${detail}.`,
+          model: "gpt-3.5-turbo",  // Updated to the current model
+          messages: [
+            {
+              role: "system",
+              content: "You are a personal trainer."
+            },
+            {
+              role: "user",
+              content: `Create a detailed workout plan for someone aiming for ${goal}. Focus on ${detail}.`
+            }
+          ],
           max_tokens: 150, // Adjust as needed
         }),
       });
@@ -40,7 +48,7 @@ function Workouts() {
       if (response.ok) {
         const data = await response.json();
         if (data.choices && data.choices.length > 0) {
-          setPlan(data.choices[0].text.trim());
+          setPlan(data.choices[0].message.content.trim());
         } else {
           setError('No plan generated. Please try again.');
         }
