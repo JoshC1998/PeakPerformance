@@ -1,8 +1,5 @@
 import React, { useState } from 'react';
 
-const API_URL = 'https://api.openai.com/v1/chat/completions';  
-const API_KEY = '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';  // Replace with your actual API key
-
 function Workouts() {
   const [goal, setGoal] = useState('');
   const [detail, setDetail] = useState('');
