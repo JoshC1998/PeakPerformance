@@ -7,6 +7,7 @@ import Signup from './UserPanel/Signup';
 import SubmitLift from './UserPanel/SubmitLifts';
 import Tracker from './UserPanel/Tracker';
 import Workouts from './UserPanel/Workouts';
+import LeaderBoard from './UserPanel/Leaderboard'
 
 const API_URL = 'http://localhost:5555'; // Replace with your actual API URL
 
@@ -60,7 +61,6 @@ function App() {
           currentUser ? 
           <UserDetails currentUser={currentUser} setCurrentUser={setCurrentUser} /> : 
           <>
-            {/* <Scoreboard /> */}
             <Navigate to="/login" />
           </>
         } />
@@ -69,6 +69,7 @@ function App() {
         <Route path="/lifts" element={currentUser ? <SubmitLift /> : <Navigate to="/login" />} />
         <Route path="/tracker" element={currentUser ? <Tracker /> : <Navigate to="/login" />} />
         <Route path="/workouts" element={currentUser ? <Workouts /> : <Navigate to="/login" />} />
+        <Route path="/leaderboard" element={currentUser ? <LeaderBoard /> : <Navigate to="/login" />} />
       </Routes>
     </div>
   );

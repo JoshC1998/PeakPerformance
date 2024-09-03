@@ -11,7 +11,7 @@ function NavBar({ currentUser, handleLogout }) {
           <NavLink to="/lifts">Submit Lifts</NavLink>
           <NavLink to="/tracker">Tracker</NavLink>
           <NavLink to="/workouts">Workouts</NavLink>
-          {/* <NavLink to="/newpatient">New Patient</NavLink> */}
+          <NavLink to="/leaderboard">Leader Board</NavLink>
         </>
       ) : (
         <div className="parent-container">
