@@ -18,6 +18,9 @@ cloudinary.config(
 # Initialize CORS
 CORS(app, origins=["http://localhost:5173"], supports_credentials=True)
 
+# Temporary in-memory storage for lifts
+submitted_lifts = []
+
 @app.post('/api/users')
 def create_user():
     data = request.json
@@ -98,7 +101,6 @@ def upload_video():
         print(f"Exception occurred during file upload: {e}")
         return {'error': str(e)}, 500
 
-# Handle CORS preflight requests for /api/lifts
 @app.route('/api/lifts', methods=['OPTIONS'])
 def options():
     response = jsonify({})
@@ -109,21 +111,22 @@ def options():
 
 @app.get('/api/lifts')
 def get_lifts():
-    # Query to get all lift data (you need to adapt this based on your data model)
-    lifts = [
-        {'user': 'User1', 'liftName': 'Bench', 'weight': 225},
-        {'user': 'User2', 'liftName': 'Deadlift', 'weight': 315},
-        {'user': 'User3', 'liftName': 'Squat', 'weight': 275},
-        # Add more data as needed
-    ]
-    return jsonify(lifts), 200
+    # Return the list of submitted lifts
+    return jsonify(submitted_lifts), 200
 
 @app.post('/api/lifts')
 def submit_lift():
     data = request.json
-    if 'videoUrl' not in data or 'liftName' not in data or 'weight' not in data:
+    if 'videoUrl' not in data or 'liftName' not in data or 'weight' not in data or 'user' not in data:
         return {'error': 'Missing required fields'}, 400
-    # Process the lift data here (store it in your database)
+
+    # Add the lift data to the list
+    submitted_lifts.append({
+        'user': data['user'],
+        'liftName': data['liftName'],
+        'weight': data['weight'],
+        'videoUrl': data['videoUrl']
+    })
     return {'message': 'Lift submitted successfully'}, 201
 
 if __name__ == '__main__':
