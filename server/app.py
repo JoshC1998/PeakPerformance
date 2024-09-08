@@ -21,13 +21,16 @@ CORS(app, origins=["http://localhost:5173"], supports_credentials=True)
 @app.post('/api/users')
 def create_user():
     data = request.json
+    print(f"Creating user with data: {data}")
+    
     try:
         existing_user = User.query.filter_by(username=data['username']).first()
         if existing_user:
+            print("Username already exists")
             return {'error': 'Username already exists'}, 409
 
         new_user = User(username=data['username'])
-        new_user.password = generate_password_hash(data['password'])
+        new_user.password = data['password']
         db.session.add(new_user)
         db.session.commit()
         session['user_id'] = new_user.id
@@ -36,13 +39,17 @@ def create_user():
         return response
     except IntegrityError:
         db.session.rollback()
+        print("IntegrityError: Username already exists")
         return {'error': 'Username already exists'}, 409
     except Exception as e:
+        print(f"Exception occurred: {e}")
         return {'error': str(e)}, 406
 
 @app.get('/api/check_session')
 def check_session():
     user_id = session.get('user_id')
+    print(f"Checking session for user_id: {user_id}")
+    
     if user_id:
         user = User.query.filter_by(id=user_id).first()
         if user:
@@ -52,13 +59,20 @@ def check_session():
 @app.post('/api/login')
 def login():
     data = request.json
+    print(f"Received login request with data: {data}")
+    
     user = User.query.filter_by(username=data['username']).first()
-    if user and user.authenticate(data['password']):
+    if not user:
+        print("User not found")
+        return {'error': 'Invalid username or password'}, 401
+
+    if user.authenticate(data['password']):
         session['user_id'] = user.id
         response = make_response(jsonify(user.to_dict()), 200)
         response.set_cookie('session', str(user.id), samesite='Lax', secure=True, httponly=True)
         return response
     else:
+        print("Authentication failed")
         return {'error': 'Invalid username or password'}, 401
 
 @app.delete('/api/logout')
@@ -81,6 +95,7 @@ def upload_video():
         result = cloudinary.uploader.upload(file, resource_type='video')
         return jsonify({'url': result['secure_url']}), 200
     except Exception as e:
+        print(f"Exception occurred during file upload: {e}")
         return {'error': str(e)}, 500
 
 # Handle CORS preflight requests for /api/lifts

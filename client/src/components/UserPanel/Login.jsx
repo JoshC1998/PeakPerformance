@@ -2,7 +2,6 @@ import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 
 function Login({ setCurrentUser }) {
-
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const navigate = useNavigate();
@@ -10,23 +9,30 @@ function Login({ setCurrentUser }) {
   function handleSubmit(e) {
     e.preventDefault();
 
+    console.log('Submitting login with:', { username, password });
+
     fetch('/api/login', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
       body: JSON.stringify({ username, password })
     })
     .then(res => {
+      console.log('Response status:', res.status);
       if (res.ok) {
         return res.json();
       } else {
-        throw new Error('Invalid username or password');
+        return res.json().then(data => {
+          throw new Error(data.error || 'Invalid username or password');
+        });
       }
     })
     .then(data => {
+      console.log('Login successful, user data:', data);
       setCurrentUser(data);
-      navigate('/patients');
+      navigate('/');
     })
     .catch(error => {
+      console.error('Login error:', error);
       alert(error.message);
     });
   }
