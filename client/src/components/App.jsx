@@ -40,11 +40,15 @@ function App() {
   }, []);
 
   useEffect(() => {
+    fetchLiftData();
+  }, []);
+
+  function fetchLiftData() {
     fetch(`${API_URL}/api/lifts`)
       .then(res => res.json())
       .then(data => setLiftData(data))
       .catch(error => console.error('Error fetching lift data:', error));
-  }, []);
+  }
 
   function handleLogout() {
     fetch(`${API_URL}/api/logout`, { method: 'DELETE' })
@@ -74,7 +78,7 @@ function App() {
           } />
           <Route path="/login" element={<Login setCurrentUser={setCurrentUser} />} />
           <Route path="/signup" element={<Signup setCurrentUser={setCurrentUser} />} />
-          <Route path="/lifts" element={currentUser ? <SubmitLift currentUser={currentUser} /> : <Navigate to="/login" />} />
+          <Route path="/lifts" element={currentUser ? <SubmitLift currentUser={currentUser} onLiftSubmitted={fetchLiftData} /> : <Navigate to="/login" />} />
           <Route path="/tracker" element={currentUser ? <Tracker /> : <Navigate to="/login" />} />
           <Route path="/workouts" element={currentUser ? <Workouts /> : <Navigate to="/login" />} />
           <Route path="/leaderboard" element={currentUser ? <LeaderBoard liftData={liftData} /> : <Navigate to="/login" />} />

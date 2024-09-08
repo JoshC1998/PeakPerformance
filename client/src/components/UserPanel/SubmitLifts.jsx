@@ -1,9 +1,9 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { useVideo } from './VideoContext'; 
 
 const API_URL = 'http://localhost:5555'; 
 
-function SubmitLift({ currentUser }) {
+function SubmitLift({ currentUser, onLiftSubmitted }) {
   const { submittedVideos, setSubmittedVideos } = useVideo(); 
   const [liftName, setLiftName] = useState('');
   const [weight, setWeight] = useState('');
@@ -11,20 +11,6 @@ function SubmitLift({ currentUser }) {
   const [videoPreview, setVideoPreview] = useState('');
   const [message, setMessage] = useState('');
   const [loading, setLoading] = useState(false);
-
-  useEffect(() => {
-    async function fetchLifts() {
-      try {
-        const response = await fetch(`${API_URL}/api/lifts?user=${currentUser.username}`);
-        const data = await response.json();
-        setSubmittedVideos(data);
-      } catch (error) {
-        console.error('Error fetching lifts:', error);
-      }
-    }
-
-    fetchLifts();
-  }, [currentUser.username, setSubmittedVideos]);
 
   function handleVideoChange(e) {
     const file = e.target.files[0];
@@ -78,7 +64,7 @@ function SubmitLift({ currentUser }) {
       liftName,
       weight,
       videoUrl,
-      user: currentUser.username,  // Ensure the current user is tracked
+      user: currentUser.username,
     };
 
     fetch(`${API_URL}/api/lifts`, {
@@ -92,12 +78,13 @@ function SubmitLift({ currentUser }) {
       .then((data) => {
         if (data.message) {
           setMessage('Lift submitted successfully!');
+          onLiftSubmitted(); // Refresh the lift data in parent
           const newLift = {
             user: currentUser.username,
-            liftName: liftName,  // Use liftName here
+            type: liftName,
             weight: weight,
             videoUrl: videoUrl,
-            reps: 1
+            reps: 1,
           };
 
           setSubmittedVideos(prev => [...prev, newLift]);
@@ -184,7 +171,7 @@ function SubmitLift({ currentUser }) {
               .filter(video => video.user === currentUser.username) // Filter by current user
               .map((video, index) => (
                 <div key={index}>
-                  <p>{video.liftName} - {video.weight} lbs</p> {/* Display liftName */}
+                  <p>{video.type} - {video.weight} lbs</p> 
                   <video width="300" controls>
                     <source src={video.videoUrl} type="video/mp4" />
                     Your browser does not support the video tag.
