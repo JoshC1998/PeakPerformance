@@ -1,13 +1,14 @@
 import React, { useState } from 'react';
+import { useVideo } from './VideoContext'; // Import the context
 
 const API_URL = 'http://localhost:5555';  
 
 function SubmitLift() {
+  const { submittedVideos, setSubmittedVideos } = useVideo(); // Use the context
   const [liftName, setLiftName] = useState('');
   const [weight, setWeight] = useState('');
   const [video, setVideo] = useState(null);
   const [videoPreview, setVideoPreview] = useState('');
-  const [submittedVideos, setSubmittedVideos] = useState([]);
   const [message, setMessage] = useState('');
   const [loading, setLoading] = useState(false);
 
@@ -76,14 +77,23 @@ function SubmitLift() {
       .then((data) => {
         if (data.message) {
           setMessage('Lift submitted successfully!');
-          setSubmittedVideos((prev) => [
-            ...prev,
-            { videoUrl, liftName, weight }, // Store the video URL along with the lift type and weight
-          ]);
+          
+          const newLift = {
+            user: 'current user', // Replace this with actual user data if available
+            type: liftName, 
+            weight: weight,
+            videoUrl: videoUrl,
+            reps: 1 // or any number if you're tracking reps
+          };
+
+          // Update the list of submitted videos globally
+          setSubmittedVideos(prev => [...prev, newLift]);
+
+          // Reset the form fields after submission
           setLiftName('');
           setWeight('');
           setVideo(null);
-          setVideoPreview(''); // Clear video preview
+          setVideoPreview('');
         } else {
           setMessage('Failed to submit lift.');
         }
@@ -160,7 +170,7 @@ function SubmitLift() {
           <div style={{ maxHeight: '300px', overflowY: 'scroll' }}>
             {submittedVideos.map((video, index) => (
               <div key={index}>
-                <p>{video.liftName} - {video.weight} lbs</p> 
+                <p>{video.type} - {video.weight} lbs</p> 
                 <video width="300" controls>
                   <source src={video.videoUrl} type="video/mp4" />
                   Your browser does not support the video tag.

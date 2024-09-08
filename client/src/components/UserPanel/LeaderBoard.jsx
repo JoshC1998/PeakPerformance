@@ -7,9 +7,9 @@ const LeaderBoard = ({ liftData }) => {
 
   useEffect(() => {
     if (liftData) {
-      setBenchPressData(liftData.filter(lift => lift.type === 'bench_press'));
-      setDeadliftData(liftData.filter(lift => lift.type === 'deadlift'));
-      setSquatData(liftData.filter(lift => lift.type === 'squat'));
+      setBenchPressData(liftData.filter(lift => lift.liftName.toLowerCase() === 'bench'));
+      setDeadliftData(liftData.filter(lift => lift.liftName.toLowerCase() === 'deadlift'));
+      setSquatData(liftData.filter(lift => lift.liftName.toLowerCase() === 'squat'));
     }
   }, [liftData]);
 
@@ -21,7 +21,7 @@ const LeaderBoard = ({ liftData }) => {
       <ul>
         {benchPressData.map((lift, index) => (
           <li key={index}>
-            {lift.user}: {lift.weight} lbs ({lift.reps} reps)
+            {lift.user}: {lift.weight} lbs
           </li>
         ))}
       </ul>
@@ -30,7 +30,7 @@ const LeaderBoard = ({ liftData }) => {
       <ul>
         {deadliftData.map((lift, index) => (
           <li key={index}>
-            {lift.user}: {lift.weight} lbs ({lift.reps} reps)
+            {lift.user}: {lift.weight} lbs
           </li>
         ))}
       </ul>
@@ -39,7 +39,7 @@ const LeaderBoard = ({ liftData }) => {
       <ul>
         {squatData.map((lift, index) => (
           <li key={index}>
-            {lift.user}: {lift.weight} lbs ({lift.reps} reps)
+            {lift.user}: {lift.weight} lbs
           </li>
         ))}
       </ul>
