@@ -69,6 +69,8 @@ function SubmitLift({ currentUser, onLiftSubmitted }) {
       user: currentUser.username,
     };
 
+    console.log('Submitting lift data:', liftData); // Debugging line
+
     fetch(`${API_URL}/api/lifts`, {
       method: 'POST',
       headers: {
@@ -102,6 +104,10 @@ function SubmitLift({ currentUser, onLiftSubmitted }) {
       })
       .catch((error) => {
         console.error('Error submitting lift:', error);
+        // Log the response body for more details
+        error.response.text().then(text => {
+          console.error('Error response body:', text);
+        });
         setMessage('Error submitting lift.');
       })
       .finally(() => {

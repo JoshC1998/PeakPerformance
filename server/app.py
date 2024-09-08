@@ -117,14 +117,27 @@ def get_lifts():
 @app.post('/api/lifts')
 def submit_lift():
     data = request.json
-    if 'videoUrl' not in data or 'liftName' not in data or 'weight' not in data or 'user' not in data:
+    print(f"Received lift data: {data}")  # Debugging line
+    
+    if 'videoUrl' not in data or 'liftName' not in data or 'user' not in data:
         return {'error': 'Missing required fields'}, 400
+
+    # Validate liftName
+    if data['liftName'] not in ['Bench', 'Deadlift', 'Squat', 'Push-ups', 'Pull-ups']:
+        return {'error': 'Invalid lift name'}, 400
+
+    # Validate weight or reps based on lift type
+    if data['liftName'] in ['Bench', 'Deadlift', 'Squat'] and 'weight' not in data:
+        return {'error': 'Missing weight for lift'}, 400
+    if data['liftName'] in ['Push-ups', 'Pull-ups'] and 'reps' not in data:
+        return {'error': 'Missing reps for lift'}, 400
 
     # Add the lift data to the list
     submitted_lifts.append({
         'user': data['user'],
         'liftName': data['liftName'],
-        'weight': data['weight'],
+        'weight': data.get('weight'),
+        'reps': data.get('reps'),
         'videoUrl': data['videoUrl']
     })
     return {'message': 'Lift submitted successfully'}, 201
