@@ -7,6 +7,7 @@ function SubmitLift({ currentUser, onLiftSubmitted }) {
   const { submittedVideos, setSubmittedVideos } = useVideo(); 
   const [liftName, setLiftName] = useState('');
   const [weight, setWeight] = useState('');
+  const [reps, setReps] = useState('');
   const [video, setVideo] = useState(null);
   const [videoPreview, setVideoPreview] = useState('');
   const [message, setMessage] = useState('');
@@ -62,7 +63,8 @@ function SubmitLift({ currentUser, onLiftSubmitted }) {
   function submitLiftDetails(videoUrl) {
     const liftData = {
       liftName,
-      weight,
+      weight: liftName === 'Push-ups' || liftName === 'Pull-ups' ? undefined : weight,
+      reps: liftName === 'Push-ups' || liftName === 'Pull-ups' ? reps : undefined,
       videoUrl,
       user: currentUser.username,
     };
@@ -82,15 +84,16 @@ function SubmitLift({ currentUser, onLiftSubmitted }) {
           const newLift = {
             user: currentUser.username,
             type: liftName,
-            weight: weight,
+            weight: liftName === 'Push-ups' || liftName === 'Pull-ups' ? undefined : weight,
+            reps: liftName === 'Push-ups' || liftName === 'Pull-ups' ? reps : undefined,
             videoUrl: videoUrl,
-            reps: 1,
           };
 
           setSubmittedVideos(prev => [...prev, newLift]);
 
           setLiftName('');
           setWeight('');
+          setReps('');
           setVideo(null);
           setVideoPreview('');
         } else {
@@ -123,21 +126,39 @@ function SubmitLift({ currentUser, onLiftSubmitted }) {
               <option value="Bench">Bench</option>
               <option value="Deadlift">Deadlift</option>
               <option value="Squat">Squat</option>
+              <option value="Push-ups">Push-ups</option>
+              <option value="Pull-ups">Pull-ups</option>
             </select>
           </label>
         </div>
-        <div>
-          <label>
-            Weight (lbs):
-            <input
-              type="number"
-              min="1"
-              value={weight}
-              onChange={(e) => setWeight(e.target.value)}
-              required
-            />
-          </label>
-        </div>
+        {(liftName === 'Push-ups' || liftName === 'Pull-ups') && (
+          <div>
+            <label>
+              Reps:
+              <input
+                type="number"
+                min="1"
+                value={reps}
+                onChange={(e) => setReps(e.target.value)}
+                required
+              />
+            </label>
+          </div>
+        )}
+        {(liftName !== 'Push-ups' && liftName !== 'Pull-ups') && (
+          <div>
+            <label>
+              Weight (lbs):
+              <input
+                type="number"
+                min="1"
+                value={weight}
+                onChange={(e) => setWeight(e.target.value)}
+                required
+              />
+            </label>
+          </div>
+        )}
         <div>
           <label>
             Upload Video:
@@ -171,7 +192,7 @@ function SubmitLift({ currentUser, onLiftSubmitted }) {
               .filter(video => video.user === currentUser.username) // Filter by current user
               .map((video, index) => (
                 <div key={index}>
-                  <p>{video.type} - {video.weight} lbs</p> 
+                  <p>{video.type} - {video.weight ? `${video.weight} lbs` : video.reps ? `${video.reps} reps` : 'N/A'}</p> 
                   <video width="300" controls>
                     <source src={video.videoUrl} type="video/mp4" />
                     Your browser does not support the video tag.

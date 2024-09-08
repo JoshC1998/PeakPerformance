@@ -25,15 +25,18 @@ const LeaderBoard = ({ liftData }) => {
     return rankedLifts;
   };
 
+  // Filtering and ranking the data for each lift type
   const benchPressData = rankLifts(getSortedLifts(liftData.filter(lift => lift.liftName.toLowerCase() === 'bench')));
   const deadliftData = rankLifts(getSortedLifts(liftData.filter(lift => lift.liftName.toLowerCase() === 'deadlift')));
   const squatData = rankLifts(getSortedLifts(liftData.filter(lift => lift.liftName.toLowerCase() === 'squat')));
+  const pushUpsData = rankLifts(getSortedLifts(liftData.filter(lift => lift.liftName.toLowerCase() === 'push-ups')));
+  const pullUpsData = rankLifts(getSortedLifts(liftData.filter(lift => lift.liftName.toLowerCase() === 'pull-ups')));
 
   const renderLiftList = (data) => (
     <div>
       {data.map((lift, index) => (
         <div key={index}>
-          Rank {lift.rank}: {lift.user} - {lift.weight} lbs <a href={lift.videoUrl} target="_blank" rel="noopener noreferrer">Watch Video</a>
+          Rank {lift.rank}: {lift.user} - {lift.weight ? `${lift.weight} lbs` : lift.reps ? `${lift.reps} reps` : 'N/A'} <a href={lift.videoUrl} target="_blank" rel="noopener noreferrer">Watch Video</a>
         </div>
       ))}
     </div>
@@ -51,6 +54,12 @@ const LeaderBoard = ({ liftData }) => {
 
       <h2>Squat</h2>
       {renderLiftList(squatData)}
+
+      <h2>Push-Ups</h2>
+      {renderLiftList(pushUpsData)}
+
+      <h2>Pull-Ups</h2>
+      {renderLiftList(pullUpsData)}
     </div>
   );
 };
