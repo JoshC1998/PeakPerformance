@@ -12,6 +12,20 @@ function SubmitLift({ currentUser }) {
   const [message, setMessage] = useState('');
   const [loading, setLoading] = useState(false);
 
+  useEffect(() => {
+    async function fetchLifts() {
+      try {
+        const response = await fetch(`${API_URL}/api/lifts?user=${currentUser.username}`);
+        const data = await response.json();
+        setSubmittedVideos(data);
+      } catch (error) {
+        console.error('Error fetching lifts:', error);
+      }
+    }
+
+    fetchLifts();
+  }, [currentUser.username, setSubmittedVideos]);
+
   function handleVideoChange(e) {
     const file = e.target.files[0];
     if (file) {
@@ -79,8 +93,8 @@ function SubmitLift({ currentUser }) {
         if (data.message) {
           setMessage('Lift submitted successfully!');
           const newLift = {
-            user: currentUser.username,  // Assign to the current user
-            type: liftName, 
+            user: currentUser.username,
+            liftName: liftName,  // Use liftName here
             weight: weight,
             videoUrl: videoUrl,
             reps: 1
@@ -170,7 +184,7 @@ function SubmitLift({ currentUser }) {
               .filter(video => video.user === currentUser.username) // Filter by current user
               .map((video, index) => (
                 <div key={index}>
-                  <p>{video.type} - {video.weight} lbs</p> 
+                  <p>{video.liftName} - {video.weight} lbs</p> {/* Display liftName */}
                   <video width="300" controls>
                     <source src={video.videoUrl} type="video/mp4" />
                     Your browser does not support the video tag.

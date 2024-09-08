@@ -14,31 +14,31 @@ const LeaderBoard = ({ liftData }) => {
       <h1>Leaderboard</h1>
 
       <h2>Bench Press</h2>
-      <ul>
+      <ol>
         {benchPressData.map((lift, index) => (
           <li key={index}>
             {lift.user}: {lift.weight} lbs <a href={lift.videoUrl} target="_blank" rel="noopener noreferrer">Watch Video</a>
           </li>
         ))}
-      </ul>
+      </ol>
 
       <h2>Deadlift</h2>
-      <ul>
+      <ol>
         {deadliftData.map((lift, index) => (
           <li key={index}>
             {lift.user}: {lift.weight} lbs <a href={lift.videoUrl} target="_blank" rel="noopener noreferrer">Watch Video</a>
           </li>
         ))}
-      </ul>
+      </ol>
 
       <h2>Squat</h2>
-      <ul>
+      <ol>
         {squatData.map((lift, index) => (
           <li key={index}>
             {lift.user}: {lift.weight} lbs <a href={lift.videoUrl} target="_blank" rel="noopener noreferrer">Watch Video</a>
           </li>
         ))}
-      </ul>
+      </ol>
     </div>
   );
 };
