@@ -1,52 +1,46 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 
-const API_URL = 'http://localhost:5555';  // Replace with your actual API URL
+const LeaderBoard = ({ liftData }) => {
+  const getSortedLifts = (lifts) => {
+    return lifts.sort((a, b) => b.weight - a.weight); // Sort in descending order by weight
+  };
 
-function LeaderBoard({ currentUser }) {
-  const [lifts, setLifts] = useState([]);
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    fetch(`${API_URL}/api/lifts`)
-      .then((res) => res.json())
-      .then((data) => {
-        // Sort the lifts by weight in descending order
-        const sortedLifts = data.sort((a, b) => b.weight - a.weight);
-        setLifts(sortedLifts);
-        setLoading(false);
-      })
-      .catch((error) => {
-        console.error('Error fetching lifts:', error);
-        setLoading(false);
-      });
-  }, []);
-
-  if (loading) {
-    return <p>Loading...</p>;
-  }
+  const benchPressData = getSortedLifts(liftData.filter(lift => lift.liftName.toLowerCase() === 'bench'));
+  const deadliftData = getSortedLifts(liftData.filter(lift => lift.liftName.toLowerCase() === 'deadlift'));
+  const squatData = getSortedLifts(liftData.filter(lift => lift.liftName.toLowerCase() === 'squat'));
 
   return (
-    <div>
-      <h2>Leaderboard</h2>
-      {lifts.length > 0 ? (
-        <ul>
-          {lifts.map((lift, index) => (
-            <li key={index}>
-              <p>
-                <strong>{lift.user}</strong> - {lift.liftName}: {lift.weight} lbs
-              </p>
-              <video width="300" controls>
-                <source src={lift.videoUrl} type="video/mp4" />
-                Your browser does not support the video tag.
-              </video>
-            </li>
-          ))}
-        </ul>
-      ) : (
-        <p>No lifts submitted yet.</p>
-      )}
+    <div className="leaderboard">
+      <h1>Leaderboard</h1>
+
+      <h2>Bench Press</h2>
+      <ul>
+        {benchPressData.map((lift, index) => (
+          <li key={index}>
+            {lift.user}: {lift.weight} lbs <a href={lift.videoUrl} target="_blank" rel="noopener noreferrer">Watch Video</a>
+          </li>
+        ))}
+      </ul>
+
+      <h2>Deadlift</h2>
+      <ul>
+        {deadliftData.map((lift, index) => (
+          <li key={index}>
+            {lift.user}: {lift.weight} lbs <a href={lift.videoUrl} target="_blank" rel="noopener noreferrer">Watch Video</a>
+          </li>
+        ))}
+      </ul>
+
+      <h2>Squat</h2>
+      <ul>
+        {squatData.map((lift, index) => (
+          <li key={index}>
+            {lift.user}: {lift.weight} lbs <a href={lift.videoUrl} target="_blank" rel="noopener noreferrer">Watch Video</a>
+          </li>
+        ))}
+      </ul>
     </div>
   );
-}
+};
 
 export default LeaderBoard;

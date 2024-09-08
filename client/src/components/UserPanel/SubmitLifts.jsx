@@ -1,10 +1,10 @@
-import React, { useState } from 'react';
-import { useVideo } from './VideoContext'; // Import the context
+import React, { useState, useEffect } from 'react';
+import { useVideo } from './VideoContext'; 
 
-const API_URL = 'http://localhost:5555';  
+const API_URL = 'http://localhost:5555'; 
 
 function SubmitLift({ currentUser }) {
-  const { submittedVideos, setSubmittedVideos } = useVideo(); // Use the context
+  const { submittedVideos, setSubmittedVideos } = useVideo(); 
   const [liftName, setLiftName] = useState('');
   const [weight, setWeight] = useState('');
   const [video, setVideo] = useState(null);
@@ -16,7 +16,7 @@ function SubmitLift({ currentUser }) {
     const file = e.target.files[0];
     if (file) {
       setVideo(file);
-      setVideoPreview(URL.createObjectURL(file)); 
+      setVideoPreview(URL.createObjectURL(file));
     }
   }
 
@@ -60,16 +60,11 @@ function SubmitLift({ currentUser }) {
   }
 
   function submitLiftDetails(videoUrl) {
-    if (!currentUser || !currentUser.username) {
-      setMessage('Error: User not logged in.');
-      return;
-    }
-
     const liftData = {
       liftName,
       weight,
       videoUrl,
-      user: currentUser.username, // Set to logged-in username
+      user: currentUser.username,  // Ensure the current user is tracked
     };
 
     fetch(`${API_URL}/api/lifts`, {
@@ -83,19 +78,16 @@ function SubmitLift({ currentUser }) {
       .then((data) => {
         if (data.message) {
           setMessage('Lift submitted successfully!');
-
           const newLift = {
-            user: currentUser.username,
-            type: liftName,
+            user: currentUser.username,  // Assign to the current user
+            type: liftName, 
             weight: weight,
             videoUrl: videoUrl,
-            reps: 1,
+            reps: 1
           };
 
-          // Update the list of submitted videos globally
           setSubmittedVideos(prev => [...prev, newLift]);
 
-          // Reset the form fields after submission
           setLiftName('');
           setWeight('');
           setVideo(null);
@@ -172,17 +164,19 @@ function SubmitLift({ currentUser }) {
 
       {submittedVideos.length > 0 && (
         <div className="submitted-videos">
-          <h3>Submitted Videos</h3>
+          <h3>Your Submitted Videos</h3>
           <div style={{ maxHeight: '300px', overflowY: 'scroll' }}>
-            {submittedVideos.map((video, index) => (
-              <div key={index}>
-                <p>{video.type} - {video.weight} lbs</p> 
-                <video width="300" controls>
-                  <source src={video.videoUrl} type="video/mp4" />
-                  Your browser does not support the video tag.
-                </video>
-              </div>
-            ))}
+            {submittedVideos
+              .filter(video => video.user === currentUser.username) // Filter by current user
+              .map((video, index) => (
+                <div key={index}>
+                  <p>{video.type} - {video.weight} lbs</p> 
+                  <video width="300" controls>
+                    <source src={video.videoUrl} type="video/mp4" />
+                    Your browser does not support the video tag.
+                  </video>
+                </div>
+              ))}
           </div>
         </div>
       )}

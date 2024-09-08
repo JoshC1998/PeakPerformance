@@ -8,27 +8,28 @@ import SubmitLift from './UserPanel/SubmitLifts';
 import Tracker from './UserPanel/Tracker';
 import Workouts from './UserPanel/Workouts';
 import LeaderBoard from './UserPanel/LeaderBoard';
-import { VideoProvider } from './UserPanel/VideoContext'; // Import VideoProvider
+import { VideoProvider } from './UserPanel/VideoContext'; 
 
-const API_URL = 'http://localhost:5555'; // Replace with your actual API URL
+const API_URL = 'http://localhost:5555'; 
 
 function App() {
   const [currentUser, setCurrentUser] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [liftData, setLiftData] = useState([]);
 
   useEffect(() => {
     fetch(`${API_URL}/api/check_session`)
       .then(res => {
         if (res.status === 204) {
-          return {}; // No content, so return an empty object
+          return {}; 
         }
-        return res.json(); // Process JSON response if status is not 204
+        return res.json(); 
       })
       .then(data => {
         if (data.user) {
           setCurrentUser(data.user);
         } else {
-          setCurrentUser(null); // No user found
+          setCurrentUser(null);
         }
         setLoading(false);
       })
@@ -36,6 +37,13 @@ function App() {
         console.error('Error checking session:', error);
         setLoading(false);
       });
+  }, []);
+
+  useEffect(() => {
+    fetch(`${API_URL}/api/lifts`)
+      .then(res => res.json())
+      .then(data => setLiftData(data))
+      .catch(error => console.error('Error fetching lift data:', error));
   }, []);
 
   function handleLogout() {
@@ -62,16 +70,14 @@ function App() {
           <Route path="/" element={
             currentUser ? 
             <UserDetails currentUser={currentUser} setCurrentUser={setCurrentUser} /> : 
-            <>
-              <Navigate to="/login" />
-            </>
+            <Navigate to="/login" />
           } />
           <Route path="/login" element={<Login setCurrentUser={setCurrentUser} />} />
           <Route path="/signup" element={<Signup setCurrentUser={setCurrentUser} />} />
           <Route path="/lifts" element={currentUser ? <SubmitLift currentUser={currentUser} /> : <Navigate to="/login" />} />
           <Route path="/tracker" element={currentUser ? <Tracker /> : <Navigate to="/login" />} />
           <Route path="/workouts" element={currentUser ? <Workouts /> : <Navigate to="/login" />} />
-          <Route path="/leaderboard" element={currentUser ? <LeaderBoard currentUser={currentUser} /> : <Navigate to="/login" />} />
+          <Route path="/leaderboard" element={currentUser ? <LeaderBoard liftData={liftData} /> : <Navigate to="/login" />} />
         </Routes>
       </div>
     </VideoProvider>
