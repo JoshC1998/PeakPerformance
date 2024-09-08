@@ -3,7 +3,7 @@ import { useVideo } from './VideoContext'; // Import the context
 
 const API_URL = 'http://localhost:5555';  
 
-function SubmitLift() {
+function SubmitLift({ currentUser }) {
   const { submittedVideos, setSubmittedVideos } = useVideo(); // Use the context
   const [liftName, setLiftName] = useState('');
   const [weight, setWeight] = useState('');
@@ -60,10 +60,16 @@ function SubmitLift() {
   }
 
   function submitLiftDetails(videoUrl) {
+    if (!currentUser || !currentUser.username) {
+      setMessage('Error: User not logged in.');
+      return;
+    }
+
     const liftData = {
       liftName,
       weight,
       videoUrl,
+      user: currentUser.username, // Set to logged-in username
     };
 
     fetch(`${API_URL}/api/lifts`, {
@@ -77,13 +83,13 @@ function SubmitLift() {
       .then((data) => {
         if (data.message) {
           setMessage('Lift submitted successfully!');
-          
+
           const newLift = {
-            user: 'current user', // Replace this with actual user data if available
-            type: liftName, 
+            user: currentUser.username,
+            type: liftName,
             weight: weight,
             videoUrl: videoUrl,
-            reps: 1 // or any number if you're tracking reps
+            reps: 1,
           };
 
           // Update the list of submitted videos globally

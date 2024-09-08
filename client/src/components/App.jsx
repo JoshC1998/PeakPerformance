@@ -68,10 +68,10 @@ function App() {
           } />
           <Route path="/login" element={<Login setCurrentUser={setCurrentUser} />} />
           <Route path="/signup" element={<Signup setCurrentUser={setCurrentUser} />} />
-          <Route path="/lifts" element={currentUser ? <SubmitLift /> : <Navigate to="/login" />} />
+          <Route path="/lifts" element={currentUser ? <SubmitLift currentUser={currentUser} /> : <Navigate to="/login" />} />
           <Route path="/tracker" element={currentUser ? <Tracker /> : <Navigate to="/login" />} />
           <Route path="/workouts" element={currentUser ? <Workouts /> : <Navigate to="/login" />} />
-          <Route path="/leaderboard" element={currentUser ? <LeaderBoard /> : <Navigate to="/login" />} />
+          <Route path="/leaderboard" element={currentUser ? <LeaderBoard currentUser={currentUser} /> : <Navigate to="/login" />} />
         </Routes>
       </div>
     </VideoProvider>
