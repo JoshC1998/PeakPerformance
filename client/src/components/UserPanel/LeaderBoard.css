@@ -1,0 +1,76 @@
+.leaderboard {
+    width: 80%;
+    margin: 0 auto;
+    text-align: center;
+    font-family: Arial, sans-serif;
+    background-color: #2c3e50; /* Dark background for contrast */
+    color: #ecf0f1; /* Light text for readability */
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  .tabs {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+  }
+  
+  .tabs button {
+    padding: 10px 20px;
+    margin: 0 5px;
+    border: none;
+    background-color: #34495e; /* Darker blue-gray for default tab */
+    color: #ecf0f1;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: bold;
+    transition: background-color 0.3s, transform 0.2s;
+    border-radius: 5px;
+  }
+  
+  .tabs button.active {
+    background-color: #34b532; /* Bright red for active tab */
+    color: white;
+    transform: scale(1.05); /* Slight scale up to emphasize the active tab */
+  }
+  
+  .tabs button:hover:not(.active) {
+    background-color: #16a085; /* Teal color on hover for non-active tabs */
+  }
+  
+  .tab-content {
+    margin-top: 20px;
+  }
+  
+  .lift-list {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+  }
+  
+  .lift-item {
+    background-color: #34495e; /* Darker background for lift items */
+    padding: 15px;
+    border-radius: 8px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  }
+  
+  .lift-item span {
+    font-size: 18px;
+    font-weight: bold;
+  }
+  
+  .lift-item a {
+    text-decoration: none;
+    color: #d4d9db; /* Match the active tab color */
+    font-weight: bold;
+  }
+  
+  .lift-item a:hover {
+    text-decoration: underline;
+    color: #46aa47; /* Bright yellow on hover */
+  }
