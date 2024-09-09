@@ -1,5 +1,9 @@
 import React, { useState } from 'react';
 
+const API_URL = 'https://api.openai.com/v1/chat/completions';
+const API_KEY = import.meta.env.VITE_OPENAI_API_KEY;  
+console.log(API_KEY)
+
 function Workouts() {
   const [goal, setGoal] = useState('');
   const [detail, setDetail] = useState('');
@@ -19,15 +23,16 @@ function Workouts() {
   const fetchWorkoutPlan = async () => {
     setLoading(true);
     setError('');
+
     try {
       const response = await fetch(API_URL, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          'Authorization': `Bearer ${API_KEY}`,
+          'Authorization': `Bearer ${API_KEY}`,  // Use environment variable here
         },
         body: JSON.stringify({
-          model: "gpt-3.5-turbo",  // Updated to the current model
+          model: "gpt-3.5-turbo",
           messages: [
             {
               role: "system",
@@ -35,10 +40,10 @@ function Workouts() {
             },
             {
               role: "user",
-              content: `Create a detailed workout plan for someone aiming for ${goal}. Focus on ${detail}.`
+              content: `Create a detailed workout plan for someone aiming for ${goal}. Focus on ${detail || 'a general workout'}.`
             }
           ],
-          max_tokens: 150, // Adjust as needed
+          max_tokens: 200,
         }),
       });
 
@@ -49,6 +54,9 @@ function Workouts() {
         } else {
           setError('No plan generated. Please try again.');
         }
+      } else if (response.status === 429) {
+        setError('Quota exceeded. Please check your plan and billing details.');
+        console.error('Quota exceeded:', await response.text());
       } else {
         setError('Failed to fetch workout plan');
         console.error('Failed response:', await response.text());
@@ -63,10 +71,10 @@ function Workouts() {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    if (goal && detail) {
+    if (goal) {
       fetchWorkoutPlan();
     } else {
-      setError('Please select both a goal and a detail');
+      setError('Please select a goal');
     }
   };
 
@@ -76,17 +84,18 @@ function Workouts() {
       <form onSubmit={handleSubmit}>
         <label>
           Choose your goal:
-          <select value={goal} onChange={handleGoalChange}>
+          <select value={goal} onChange={handleGoalChange} disabled={loading}>
             <option value="">Select a goal</option>
             <option value="weight loss">Weight Loss</option>
             <option value="weight gain">Weight Gain</option>
             <option value="strength">Strength</option>
           </select>
         </label>
+
         {goal && (
           <label>
             Choose a detail:
-            <select value={detail} onChange={handleDetailChange}>
+            <select value={detail} onChange={handleDetailChange} disabled={loading}>
               <option value="">Select a detail</option>
               {goal === 'weight loss' && (
                 <>
@@ -109,15 +118,30 @@ function Workouts() {
             </select>
           </label>
         )}
+
         <button type="submit" disabled={loading}>
           {loading ? 'Loading...' : 'Get Workout Plan'}
         </button>
       </form>
-      {error && <p style={{ color: 'red' }}>{error}</p>}
-      {plan && <div>
-        <h2>Your Workout Plan:</h2>
-        <p>{plan}</p>
-      </div>}
+
+      {error && (
+        <div style={{ color: 'red', marginTop: '20px' }}>
+          <p>{error}</p>
+        </div>
+      )}
+
+      {loading && (
+        <div style={{ marginTop: '20px' }}>
+          <p>Loading your workout plan...</p>
+        </div>
+      )}
+
+      {plan && (
+        <div style={{ marginTop: '20px' }}>
+          <h2>Your Workout Plan:</h2>
+          <p>{plan}</p>
+        </div>
+      )}
     </div>
   );
 }

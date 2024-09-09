@@ -53,6 +53,7 @@ jspm_packages
 /.bundle
 
 # Virtual env metadata
+.env
 .venv
 echo ".env" >> .gitignore
 
