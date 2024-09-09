@@ -276,5 +276,4 @@ function SubmitLift({ currentUser, onLiftSubmitted }) {
     </div>
   );
 }
-
 export default SubmitLift;

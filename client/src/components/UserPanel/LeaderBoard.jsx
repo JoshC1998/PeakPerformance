@@ -28,7 +28,6 @@ const LeaderBoard = ({ liftData }) => {
     return rankedLifts;
   };
 
-  // Filtering and ranking the data for each lift type
   const benchPressData = rankLifts(getSortedLifts(liftData.filter(lift => lift.liftName.toLowerCase() === 'bench')));
   const deadliftData = rankLifts(getSortedLifts(liftData.filter(lift => lift.liftName.toLowerCase() === 'deadlift')));
   const squatData = rankLifts(getSortedLifts(liftData.filter(lift => lift.liftName.toLowerCase() === 'squat')));

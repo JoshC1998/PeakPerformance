@@ -1,12 +1,14 @@
 import React, { useState } from 'react';
+import './Workouts.css'; // Import the CSS file if you have styling
 
 const API_URL = 'https://api.openai.com/v1/chat/completions';
 const API_KEY = import.meta.env.VITE_OPENAI_API_KEY;  
-console.log(API_KEY)
+console.log(API_KEY);
 
 function Workouts() {
   const [goal, setGoal] = useState('');
   const [detail, setDetail] = useState('');
+  const [userPrompt, setUserPrompt] = useState('');
   const [plan, setPlan] = useState('');
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
@@ -18,6 +20,10 @@ function Workouts() {
 
   const handleDetailChange = (event) => {
     setDetail(event.target.value);
+  };
+
+  const handlePromptChange = (event) => {
+    setUserPrompt(event.target.value);
   };
 
   const fetchWorkoutPlan = async () => {
@@ -40,7 +46,7 @@ function Workouts() {
             },
             {
               role: "user",
-              content: `Create a detailed workout plan for someone aiming for ${goal}. Focus on ${detail || 'a general workout'}.`
+              content: userPrompt || `Create a detailed workout plan for someone aiming for ${goal}. Focus on ${detail || 'a general workout'}.`
             }
           ],
           max_tokens: 200,
@@ -71,10 +77,10 @@ function Workouts() {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    if (goal) {
+    if (goal || userPrompt) {
       fetchWorkoutPlan();
     } else {
-      setError('Please select a goal');
+      setError('Please enter a prompt or select a goal');
     }
   };
 
@@ -119,27 +125,32 @@ function Workouts() {
           </label>
         )}
 
+        <label>
+          Or type your own prompt:
+          <textarea value={userPrompt} onChange={handlePromptChange} disabled={loading} placeholder="Type your custom workout prompt here..." />
+        </label>
+
         <button type="submit" disabled={loading}>
           {loading ? 'Loading...' : 'Get Workout Plan'}
         </button>
       </form>
 
       {error && (
-        <div style={{ color: 'red', marginTop: '20px' }}>
+        <div className="error-message">
           <p>{error}</p>
         </div>
       )}
 
       {loading && (
-        <div style={{ marginTop: '20px' }}>
+        <div className="loading-message">
           <p>Loading your workout plan...</p>
         </div>
       )}
 
       {plan && (
-        <div style={{ marginTop: '20px' }}>
-          <h2>Your Workout Plan:</h2>
-          <p>{plan}</p>
+        <div className="plan-container">
+          <h2 className="plan-header">Your Workout Plan:</h2>
+          <p className="plan-content">{plan}</p>
         </div>
       )}
     </div>
