@@ -36,7 +36,7 @@
   }
   
   .tabs button:hover:not(.active) {
-    background-color: #16a085; /* Teal color on hover for non-active tabs */
+    background-color: #58b26a6c; /* Teal color on hover for non-active tabs */
   }
   
   .tab-content {
@@ -72,5 +72,5 @@
   
   .lift-item a:hover {
     text-decoration: underline;
-    color: #46aa47; /* Bright yellow on hover */
+    color: #21bc21; /* Bright yellow on hover */
   }

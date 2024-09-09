@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useVideo } from './VideoContext'; 
+import './SubmitLift.css'; // Assuming you have the CSS file for styling
 
 const API_URL = 'http://localhost:5555'; 
 
@@ -69,8 +70,6 @@ function SubmitLift({ currentUser, onLiftSubmitted }) {
       user: currentUser.username,
     };
 
-    console.log('Submitting lift data:', liftData); // Debugging line
-
     fetch(`${API_URL}/api/lifts`, {
       method: 'POST',
       headers: {
@@ -82,7 +81,7 @@ function SubmitLift({ currentUser, onLiftSubmitted }) {
       .then((data) => {
         if (data.message) {
           setMessage('Lift submitted successfully!');
-          onLiftSubmitted(); // Refresh the lift data in parent
+          onLiftSubmitted(); 
           const newLift = {
             user: currentUser.username,
             type: liftName,
@@ -104,10 +103,6 @@ function SubmitLift({ currentUser, onLiftSubmitted }) {
       })
       .catch((error) => {
         console.error('Error submitting lift:', error);
-        // Log the response body for more details
-        error.response.text().then(text => {
-          console.error('Error response body:', text);
-        });
         setMessage('Error submitting lift.');
       })
       .finally(() => {
@@ -194,17 +189,87 @@ function SubmitLift({ currentUser, onLiftSubmitted }) {
         <div className="submitted-videos">
           <h3>Your Submitted Videos</h3>
           <div style={{ maxHeight: '300px', overflowY: 'scroll' }}>
-            {submittedVideos
-              .filter(video => video.user === currentUser.username) // Filter by current user
-              .map((video, index) => (
-                <div key={index}>
-                  <p>{video.type} - {video.weight ? `${video.weight} lbs` : video.reps ? `${video.reps} reps` : 'N/A'}</p> 
-                  <video width="300" controls>
-                    <source src={video.videoUrl} type="video/mp4" />
-                    Your browser does not support the video tag.
-                  </video>
-                </div>
-              ))}
+
+            {/* Bench Press Videos */}
+            <div className="video-category">
+              <h4>Bench Press</h4>
+              {submittedVideos
+                .filter(video => video.type === 'Bench' && video.user === currentUser.username)
+                .map((video, index) => (
+                  <div className="video-item" key={index}>
+                    <p>{video.weight} lbs</p>
+                    <video controls>
+                      <source src={video.videoUrl} type="video/mp4" />
+                      Your browser does not support the video tag.
+                    </video>
+                  </div>
+                ))}
+            </div>
+
+            {/* Deadlift Videos */}
+            <div className="video-category">
+              <h4>Deadlift</h4>
+              {submittedVideos
+                .filter(video => video.type === 'Deadlift' && video.user === currentUser.username)
+                .map((video, index) => (
+                  <div className="video-item" key={index}>
+                    <p>{video.weight} lbs</p>
+                    <video controls>
+                      <source src={video.videoUrl} type="video/mp4" />
+                      Your browser does not support the video tag.
+                    </video>
+                  </div>
+                ))}
+            </div>
+
+            {/* Squat Videos */}
+            <div className="video-category">
+              <h4>Squat</h4>
+              {submittedVideos
+                .filter(video => video.type === 'Squat' && video.user === currentUser.username)
+                .map((video, index) => (
+                  <div className="video-item" key={index}>
+                    <p>{video.weight} lbs</p>
+                    <video controls>
+                      <source src={video.videoUrl} type="video/mp4" />
+                      Your browser does not support the video tag.
+                    </video>
+                  </div>
+                ))}
+            </div>
+
+            {/* Push-ups Videos */}
+            <div className="video-category">
+              <h4>Push-ups</h4>
+              {submittedVideos
+                .filter(video => video.type === 'Push-ups' && video.user === currentUser.username)
+                .map((video, index) => (
+                  <div className="video-item" key={index}>
+                    <p>{video.reps} reps</p>
+                    <video controls>
+                      <source src={video.videoUrl} type="video/mp4" />
+                      Your browser does not support the video tag.
+                    </video>
+                  </div>
+                ))}
+            </div>
+
+            {/* Pull-ups Videos */}
+            <div className="video-category">
+              <h4>Pull-ups</h4>
+              {submittedVideos
+                .filter(video => video.type === 'Pull-ups' && video.user === currentUser.username)
+                .map((video, index) => (
+                  <div className="video-item" key={index}>
+                    <p>{video.reps} reps</p>
+                    <video controls>
+                      <source src={video.videoUrl} type="video/mp4" />
+                      Your browser does not support the video tag.
+                    </video>
+                  </div>
+                ))}
+            </div>
+
           </div>
         </div>
       )}
