@@ -13,6 +13,7 @@ function NavBar({ currentUser, handleLogout }) {
           <NavLink to="/tracker">Tracker</NavLink>
           <NavLink to="/workouts">Workouts</NavLink>
           <NavLink to="/leaderboard">Leader Board</NavLink>
+          <NavLink to="/meals">Meals</NavLink>
         </>
       ) : (
         <div className="parent-container">

@@ -31,25 +31,50 @@ function Tracker() {
     ? liftsData
     : liftsData.filter(entry => entry.liftType === filter);
 
-  const createDataset = (label, key, color) => ({
-    label,
-    data: filteredData.map(entry => ({
+  // Function to create dataset for weight of each lift type
+  const createLiftTypeDataset = (type, color) => ({
+    label: `${type.charAt(0).toUpperCase() + type.slice(1)} Weight (lbs)`,
+    data: filteredData.filter(entry => entry.liftType === type).map(entry => ({
       x: entry.date,
-      y: entry[key],
+      y: entry.lift,
     })),
     borderColor: color,
     borderWidth: 2,
     fill: false,
   });
 
+  // Function to create dataset for body weight
+  const createBodyWeightDataset = () => ({
+    label: 'Body Weight (lbs)',
+    data: filteredData.map(entry => ({
+      x: entry.date,
+      y: entry.weight,
+    })),
+    borderColor: 'rgba(75,192,192,1)',
+    borderWidth: 2,
+    fill: false,
+  });
+
+  // Function to create dataset for reps
+  const createRepsDataset = () => ({
+    label: 'Reps',
+    data: filteredData.map(entry => ({
+      x: entry.date,
+      y: entry.reps,
+    })),
+    borderColor: 'rgba(255,99,132,1)',
+    borderWidth: 2,
+    fill: false,
+  });
+
   const data = {
-    labels: filteredData.map(entry => entry.date),
+    labels: [...new Set(filteredData.map(entry => entry.date))],
     datasets: [
-      createDataset('Weight (lbs)', 'weight', 'rgba(75,192,192,1)'),
-      createDataset('Reps', 'reps', 'rgba(153,102,255,1)'),
-      createDataset('Bench Press Weight', 'weight', 'rgba(75,192,192,0.5)'),
-      createDataset('Deadlift Weight', 'weight', 'rgba(153,102,255,0.5)'),
-      createDataset('Squat Weight', 'weight', 'rgba(255,99,132,0.5)'),
+      createBodyWeightDataset(),
+      createRepsDataset(),
+      createLiftTypeDataset('bench', 'rgba(75,192,192,0.5)'),
+      createLiftTypeDataset('deadlift', 'rgba(153,102,255,0.5)'),
+      createLiftTypeDataset('squat', 'rgba(255,99,132,0.5)'),
     ].filter(dataset => dataset.data.length > 0),
   };
 
@@ -59,13 +84,15 @@ function Tracker() {
       <form onSubmit={handleSubmit}>
         <div>
           <label>
-            Weight (lbs):
-            <input
-              type="number"
-              value={weight}
-              onChange={(e) => setWeight(e.target.value)}
-              required
-            />
+            Lift Type:
+            <select
+              value={liftType}
+              onChange={(e) => setLiftType(e.target.value)}
+            >
+              <option value="bench">Bench Press</option>
+              <option value="deadlift">Deadlift</option>
+              <option value="squat">Squat</option>
+            </select>
           </label>
         </div>
         <div>
@@ -92,15 +119,13 @@ function Tracker() {
         </div>
         <div>
           <label>
-            Lift Type:
-            <select
-              value={liftType}
-              onChange={(e) => setLiftType(e.target.value)}
-            >
-              <option value="bench">Bench Press</option>
-              <option value="deadlift">Deadlift</option>
-              <option value="squat">Squat</option>
-            </select>
+            Body Weight (lbs):
+            <input
+              type="number"
+              value={weight}
+              onChange={(e) => setWeight(e.target.value)}
+              required
+            />
           </label>
         </div>
         <button type="submit">Submit</button>

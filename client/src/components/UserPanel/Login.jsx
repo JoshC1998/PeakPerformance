@@ -9,15 +9,12 @@ function Login({ setCurrentUser }) {
   function handleSubmit(e) {
     e.preventDefault();
 
-    console.log('Submitting login with:', { username, password });
-
     fetch('/api/login', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
       body: JSON.stringify({ username, password })
     })
     .then(res => {
-      console.log('Response status:', res.status);
       if (res.ok) {
         return res.json();
       } else {
@@ -27,45 +24,44 @@ function Login({ setCurrentUser }) {
       }
     })
     .then(data => {
-      console.log('Login successful, user data:', data);
       setCurrentUser(data);
       navigate('/');
     })
     .catch(error => {
-      console.error('Login error:', error);
       alert(error.message);
     });
   }
 
   return (
-    <form className='user-form' onSubmit={handleSubmit}>
-      <h2>Login</h2>
+    <div className="form-container">
+      <form className='user-form' onSubmit={handleSubmit}>
+        <h2>Login</h2>
 
-      <input
-        type="text"
-        onChange={e => setUsername(e.target.value)}
-        value={username}
-        placeholder='Username'
-      />
+        <input
+          type="text"
+          onChange={e => setUsername(e.target.value)}
+          value={username}
+          placeholder='Username'
+        />
 
-      <input
-        type="password"
-        onChange={e => setPassword(e.target.value)}
-        value={password}
-        placeholder='Password'
-      />
+        <input
+          type="password"
+          onChange={e => setPassword(e.target.value)}
+          value={password}
+          placeholder='Password'
+        />
 
-      <input
-        type="submit"
-        value='Login'
-      />
-      
-      <Link to='/signup'>
-        <button type="signupbtn">Signup</button>
-      </Link>
-    </form>
+        <input
+          type="submit"
+          value='Login'
+        />
+        
+        <Link to='/signup'>
+          <button type="button">Signup</button>
+        </Link>
+      </form>
+    </div>
   );
 }
 
 export default Login;
-

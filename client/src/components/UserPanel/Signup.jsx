@@ -2,15 +2,14 @@ import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 
 function Signup({ setCurrentUser }) {
-
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const navigate = useNavigate();
 
   function handleSubmit(e) {
     e.preventDefault();
-  
-    fetch('http://localhost:5555/api/users', {  // Update the URL to include the correct backend URL and port
+
+    fetch('/api/users', {  // Ensure the URL matches your backend
       method: 'POST',
       headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
       body: JSON.stringify({ username, password })
@@ -34,33 +33,35 @@ function Signup({ setCurrentUser }) {
   }
 
   return (
-    <form className='user-form' onSubmit={handleSubmit}>
-      <h2>Signup</h2>
+    <div className="form-container">
+      <form className='user-form' onSubmit={handleSubmit}>
+        <h2>Signup</h2>
 
-      <input
-        type="text"
-        onChange={e => setUsername(e.target.value)}
-        value={username}
-        placeholder='Username'
-      />
+        <input
+          type="text"
+          onChange={e => setUsername(e.target.value)}
+          value={username}
+          placeholder='Username'
+        />
 
-      <input
-        type="password"
-        onChange={e => setPassword(e.target.value)}
-        value={password}
-        placeholder='Password'
-      />
+        <input
+          type="password"
+          onChange={e => setPassword(e.target.value)}
+          value={password}
+          placeholder='Password'
+        />
 
-      <input
-        type="submit"
-        value='Signup'
-      />
-      
-      <p>Already have an account?</p>
-      <Link to='/login'>
-        <button className='loginbtn'  type="button">Login</button>
-      </Link>
-    </form>
+        <input
+          type="submit"
+          value='Signup'
+        />
+        
+        <p>Already have an account?</p>
+        <Link to='/login'>
+          <button type="button">Login</button>
+        </Link>
+      </form>
+    </div>
   );
 }
 

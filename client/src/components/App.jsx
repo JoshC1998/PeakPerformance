@@ -9,6 +9,7 @@ import Tracker from './UserPanel/Tracker';
 import Workouts from './UserPanel/Workouts';
 import LeaderBoard from './UserPanel/LeaderBoard';
 import { VideoProvider } from './UserPanel/VideoContext'; 
+import Meals from './UserPanel/Meals';
 
 const API_URL = 'http://localhost:5555'; 
 
@@ -82,6 +83,7 @@ function App() {
           <Route path="/tracker" element={currentUser ? <Tracker /> : <Navigate to="/login" />} />
           <Route path="/workouts" element={currentUser ? <Workouts /> : <Navigate to="/login" />} />
           <Route path="/leaderboard" element={currentUser ? <LeaderBoard liftData={liftData} /> : <Navigate to="/login" />} />
+          <Route path="/meals" element={currentUser ? <Meals /> : <Navigate to="/login" />} />
         </Routes>
       </div>
     </VideoProvider>
