@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
+import './auth.css';
 
 function Login({ setCurrentUser }) {
   const [username, setUsername] = useState('');

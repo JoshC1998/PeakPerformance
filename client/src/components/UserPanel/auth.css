@@ -1,0 +1,94 @@
+/* General styling for the entire form container */
+/* General styling for the entire form container */
+.form-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background: url('https://static.vecteezy.com/system/resources/thumbnails/037/170/421/small_2x/ai-generated-a-gym-with-dark-exercise-equipment-free-photo.jpg') no-repeat center center; /* Background image */
+    background-size: cover; /* Ensure image covers entire container */
+    background-attachment: fixed; /* Keeps background image fixed during scrolling */
+  }
+  
+  /* Styling for the login/signup forms */
+  .user-form {
+    background-color: rgba(255, 255, 255, 0.9); /* Slightly transparent white background for better readability */
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
+    width: 300px;
+    text-align: center;
+  }
+  
+  /* Title styles */
+  .user-form h2 {
+    margin-bottom: 20px;
+    font-family: 'Arial', sans-serif;
+    color: #1e3c72; /* Deep blue for headings */
+  }
+  
+  /* Input fields styling */
+  .user-form input[type="text"], 
+  .user-form input[type="password"] {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 2px solid #1e3c72; /* Border matches blue theme */
+    border-radius: 5px;
+    outline: none;
+    font-size: 16px;
+    background-color: #f1f5f9; /* Light background for inputs */
+  }
+  
+  /* Submit button styling */
+  .user-form input[type="submit"] {
+    background-color: #1e3c72; /* Blue background for submit button */
+    color: #fff;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    width: 100%;
+    margin-bottom: 10px;
+    transition: background-color 0.3s ease;
+  }
+  
+  .user-form input[type="submit"]:hover {
+    background-color: #163355; /* Darker blue on hover */
+  }
+  
+  /* Button styles */
+  .user-form button {
+    background-color: #2a5298; /* Lighter blue for secondary buttons */
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 10px;
+    cursor: pointer;
+    font-size: 16px;
+    width: 100%;
+    margin-top: 10px;
+    transition: background-color 0.3s ease;
+  }
+  
+  .user-form button:hover {
+    background-color: #1e3c72;
+  }
+  
+  /* Signup/Login link paragraph */
+  .user-form p {
+    margin-top: 15px;
+    color: #333;
+    font-size: 14px;
+  }
+  
+  /* Link styling */
+  .user-form a {
+    text-decoration: none;
+    color: #1e3c72;
+  }
+  
+  .user-form a:hover {
+    color: #163355;
+  }
