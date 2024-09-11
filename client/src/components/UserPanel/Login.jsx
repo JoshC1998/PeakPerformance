@@ -1,4 +1,4 @@
-import React, { useState } from 'react'; // Ensure useState is imported
+import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import './auth.css';
 
@@ -34,37 +34,40 @@ function Login({ setCurrentUser }) {
   }
 
   return (
-    <div className="auth-container">
-      <div className="auth-title-container">
-        <h1 className='auth-title'>Peak Performance</h1>
-      </div>
-      <div className="form-container">
-        <form className='user-form' onSubmit={handleSubmit}>
-          <h2>Login</h2>
+    <div className="auth-background">
+      <div className="auth-container">
+        <div className="auth-title-container">
+          <h1 className='auth-title'>Peak Performance</h1>
+        </div>
+        <div className="form-container">
+          <form className='user-form' onSubmit={handleSubmit}>
+            <h2>Login</h2>
 
-          <input
-            type="text"
-            onChange={e => setUsername(e.target.value)}
-            value={username}
-            placeholder='Username'
-          />
+            <input
+              type="text"
+              onChange={e => setUsername(e.target.value)}
+              value={username}
+              placeholder='Username'
+            />
 
-          <input
-            type="password"
-            onChange={e => setPassword(e.target.value)}
-            value={password}
-            placeholder='Password'
-          />
+            <input
+              type="password"
+              onChange={e => setPassword(e.target.value)}
+              value={password}
+              placeholder='Password'
+            />
 
-          <input
-            type="submit"
-            value='Login'
-          />
-          
-          <Link to='/signup'>
-            <button type="button">Signup</button>
-          </Link>
-        </form>
+            <input
+              type="submit"
+              value='Login'
+            />
+            
+            <p>Don't have an account?</p>
+            <Link to='/signup'>
+              <button type="button">Signup</button>
+            </Link>
+          </form>
+        </div>
       </div>
     </div>
   );
