@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Routes, Route, Navigate } from 'react-router-dom';
+import { Routes, Route, Navigate, useLocation } from 'react-router-dom';
 import NavBar from './NavBar';
 import UserDetails from './UserPanel/UserDetails';
 import Login from './UserPanel/Login';
@@ -17,6 +17,7 @@ function App() {
   const [currentUser, setCurrentUser] = useState(null);
   const [loading, setLoading] = useState(true);
   const [liftData, setLiftData] = useState([]);
+  const location = useLocation();
 
   useEffect(() => {
     fetch(`${API_URL}/api/check_session`)
@@ -67,10 +68,13 @@ function App() {
     return <h1>Loading...</h1>;
   }
 
+  // Determine if the current route is one where the NavBar should be hidden
+  const isAuthPage = location.pathname === '/login' || location.pathname === '/signup';
+
   return (
     <VideoProvider>
       <div className='app App'>
-        <NavBar currentUser={currentUser} handleLogout={handleLogout} />
+        {!isAuthPage && <NavBar currentUser={currentUser} handleLogout={handleLogout} />}
         <Routes>
           <Route path="/" element={
             currentUser ? 

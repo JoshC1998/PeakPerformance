@@ -1,94 +1,92 @@
-/* General styling for the entire form container */
-/* General styling for the entire form container */
-.form-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    background: url('https://static.vecteezy.com/system/resources/thumbnails/037/170/421/small_2x/ai-generated-a-gym-with-dark-exercise-equipment-free-photo.jpg') no-repeat center center; /* Background image */
-    background-size: cover; /* Ensure image covers entire container */
-    background-attachment: fixed; /* Keeps background image fixed during scrolling */
+/* Apply the background image */
+body {
+    margin: 0;
+    padding: 0;
+    background: url('./gympic.jpg') no-repeat center center fixed; /* Background image */
+    background-size: cover; /* Cover the entire screen */
+    font-family: Arial, sans-serif;
   }
   
-  /* Styling for the login/signup forms */
-  .user-form {
-    background-color: rgba(255, 255, 255, 0.9); /* Slightly transparent white background for better readability */
-    padding: 30px;
-    border-radius: 10px;
-    box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
-    width: 300px;
+  /* Container for login/signup forms and title */
+  .auth-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh; /* Full height */
     text-align: center;
   }
   
-  /* Title styles */
+  /* Title styling */
+  .auth-title-container {
+    margin-bottom: 60px; /* Increased space between title and form */
+  }
+  
+  .auth-title {
+    font-size: 4rem; /* Increased font size for the title */
+    font-weight: bold;
+    color: #fff; /* White text color */
+    background-color: #000; /* Black background for the title */
+    padding: 30px 60px; /* Increased padding around the text */
+    border: 3px solid #fff; /* White border around the title */
+    border-radius: 15px; /* More rounded corners */
+    display: inline-block; /* Adjusts the shape */
+  }
+  
+  /* Container for forms */
+  .form-container {
+    background: #000; /* Black background for the form container */
+    padding: 40px;
+    border-radius: 15px; /* More rounded corners */
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.4); /* Shadow for better visibility */
+    max-width: 500px; /* Increased maximum width */
+    width: 90%; /* Wider width */
+  }
+  
+  /* Style for the forms */
+  .user-form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
   .user-form h2 {
-    margin-bottom: 20px;
-    font-family: 'Arial', sans-serif;
-    color: #1e3c72; /* Deep blue for headings */
+    color: #fff; /* White text color for form headings */
+    font-size: 2rem; /* Larger font size for form headings */
+    margin-bottom: 20px; /* Space below the heading */
   }
   
-  /* Input fields styling */
-  .user-form input[type="text"], 
-  .user-form input[type="password"] {
+  input[type="text"],
+  input[type="password"] {
     width: 100%;
-    padding: 10px;
+    max-width: 350px; /* Increased maximum width of input fields */
+    padding: 12px;
     margin-bottom: 15px;
-    border: 2px solid #1e3c72; /* Border matches blue theme */
-    border-radius: 5px;
-    outline: none;
-    font-size: 16px;
-    background-color: #f1f5f9; /* Light background for inputs */
+    border: 1px solid #fff; /* White border for input fields */
+    border-radius: 8px; /* More rounded corners */
+    font-size: 1.2rem; /* Larger font size */
+    background-color: #333; /* Darker background for input fields */
+    color: #fff; /* White text color */
   }
   
-  /* Submit button styling */
-  .user-form input[type="submit"] {
-    background-color: #1e3c72; /* Blue background for submit button */
-    color: #fff;
-    padding: 10px;
+  input[type="submit"],
+  button {
+    background-color: #fff; /* White background */
+    color: #000; /* Black text color */
+    padding: 12px 24px; /* Larger padding */
     border: none;
-    border-radius: 5px;
+    border-radius: 8px; /* More rounded corners */
     cursor: pointer;
-    font-size: 16px;
-    width: 100%;
-    margin-bottom: 10px;
-    transition: background-color 0.3s ease;
+    font-size: 1.2rem; /* Larger font size */
+    margin: 10px;
   }
   
-  .user-form input[type="submit"]:hover {
-    background-color: #163355; /* Darker blue on hover */
+  input[type="submit"]:hover,
+  button:hover {
+    background-color: #ddd; /* Light gray on hover for buttons */
   }
   
-  /* Button styles */
-  .user-form button {
-    background-color: #2a5298; /* Lighter blue for secondary buttons */
-    color: white;
-    border: none;
-    border-radius: 5px;
-    padding: 10px;
-    cursor: pointer;
-    font-size: 16px;
-    width: 100%;
-    margin-top: 10px;
-    transition: background-color 0.3s ease;
-  }
-  
-  .user-form button:hover {
-    background-color: #1e3c72;
-  }
-  
-  /* Signup/Login link paragraph */
-  .user-form p {
-    margin-top: 15px;
-    color: #333;
-    font-size: 14px;
-  }
-  
-  /* Link styling */
-  .user-form a {
-    text-decoration: none;
-    color: #1e3c72;
-  }
-  
-  .user-form a:hover {
-    color: #163355;
+  p {
+    margin: 15px 0;
+    color: #fff; /* White text color */
   }
