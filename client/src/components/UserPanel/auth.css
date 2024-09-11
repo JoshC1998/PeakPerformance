@@ -1,4 +1,3 @@
-/* Apply the background image only for the auth-background class */
 .auth-background {
   margin: 0;
   padding: 0;
@@ -38,6 +37,7 @@
   box-shadow: 0 0 15px rgba(0, 0, 0, 0.4); /* Shadow for better visibility */
   max-width: 500px; /* Increased maximum width */
   width: 90%; /* Wider width */
+  border: 3px solid #fff; /* White border around the form container */
 }
 
 .user-form {
@@ -50,6 +50,7 @@
   color: #fff; /* White text color for form headings */
   font-size: 2rem; /* Larger font size for form headings */
   margin-bottom: 20px; /* Space below the heading */
+  text-decoration: none; /* Remove underline */
 }
 
 input[type="text"],
@@ -58,7 +59,7 @@ input[type="password"] {
   max-width: 350px; /* Increased maximum width of input fields */
   padding: 12px;
   margin-bottom: 15px;
-  border: 1px solid #fff; /* White border for input fields */
+  border: 2px solid #fff; /* White border for input fields */
   border-radius: 8px; /* More rounded corners */
   font-size: 1.2rem; /* Larger font size */
   background-color: #333; /* Darker background for input fields */
@@ -70,7 +71,7 @@ button {
   background-color: #fff; /* White background */
   color: #000; /* Black text color */
   padding: 12px 24px; /* Larger padding */
-  border: none;
+  border: 2px solid #fff; /* White border for buttons */
   border-radius: 8px; /* More rounded corners */
   cursor: pointer;
   font-size: 1.2rem; /* Larger font size */
@@ -82,7 +83,26 @@ button:hover {
   background-color: #ddd; /* Light gray on hover for buttons */
 }
 
-p {
+p2 {
   margin: 15px 0;
-  color: #fff; /* White text color */
+  color: #ffffff; /* Red color for text */
+  font-size: 1.4rem; /* Larger font size */
+  font-weight: bold; /* Bold text */
+  background-color: rgb(0, 0, 0); /* Slightly dark background for contrast */
+  padding: 10px; /* Padding around text */
+  border-radius: 8px; /* Rounded corners for background */
+}
+
+/* Ensure links in the login form do not have an underline */
+.user-form a {
+  text-decoration: none; /* Remove underline from links */
+  color: #fff; /* White color for links to match the form text color */
+}
+
+.user-form h4 {
+  color: #fff; /* White text color for better readability on the black background */
+  font-size: 2rem; /* Larger font size for emphasis */
+  font-weight: bold; /* Bold text for prominence */
+  margin-bottom: 10x; /* Space below the heading */
+  text-transform: uppercase; /* Uppercase text for a more striking appearance */
 }

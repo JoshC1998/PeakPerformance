@@ -13,11 +13,11 @@
 
 /* Header styling */
 h2 {
-  color: #fff; /* White text color */
-  border-bottom: 2px solid #007bff;
+  color: #ffffff; /* White text color */
+  border-bottom: 2px solid #000000;
   padding-bottom: 10px;
   margin-bottom: 20px;
-  font-size: 2rem;
+  font-size: 3rem;
 }
 h3 {
   color: #fff; /* White text color */

@@ -10,79 +10,98 @@
   align-items: center;
 }
 
-/* Existing leaderboard styles */
+/* Leaderboard styling */
 .leaderboard {
   width: 80%;
   text-align: center;
   font-family: Arial, sans-serif;
-  background-color: #2c3e50; /* Dark background for contrast */
-  color: #ecf0f1; /* Light text for readability */
-  padding: 20px;
-  border-radius: 10px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  background-color: #000; /* Black background for the leaderboard */
+  color: #fff; /* White text for readability */
+  padding: 40px; /* Increased padding for more space */
+  border-radius: 15px; /* Larger border radius for rounded corners */
+  box-shadow: 0 6px 12px rgba(255, 255, 255, 0.3); /* Slightly larger shadow */
 }
 
+/* Tabs styling */
 .tabs {
   display: flex;
   justify-content: center;
-  margin-bottom: 20px;
+  margin-bottom: 30px; /* Increased margin for spacing */
 }
 
 .tabs button {
-  padding: 10px 20px;
-  margin: 0 5px;
-  border: none;
-  background-color: #34495e; /* Darker blue-gray for default tab */
-  color: #ecf0f1;
+  padding: 15px 30px; /* Larger padding for tabs */
+  margin: 0 10px; /* Increased margin between tabs */
+  border: 3px solid #fff; /* Thicker white border for tabs */
+  background-color: #000; /* Black background for tabs */
+  color: #fff; /* White text for tabs */
   cursor: pointer;
-  font-size: 16px;
+  font-size: 18px; /* Larger font size for tab text */
   font-weight: bold;
-  transition: background-color 0.3s, transform 0.2s;
-  border-radius: 5px;
+  transition: background-color 0.3s, color 0.3s, transform 0.2s;
+  border-radius: 8px; /* Larger border radius for tabs */
 }
 
 .tabs button.active {
-  background-color: #34b532; /* Bright green for active tab */
-  color: white;
-  transform: scale(1.05); /* Slight scale up to emphasize the active tab */
+  background-color: #fff; /* White background for active tab */
+  color: #000; /* Black text for active tab */
+  transform: scale(1.1); /* Slightly larger scale up for active tab */
 }
 
 .tabs button:hover:not(.active) {
-  background-color: #58b26a6c; /* Teal color on hover for non-active tabs */
+  background-color: #333; /* Dark gray on hover for non-active tabs */
 }
 
+/* Content section for the selected tab */
 .tab-content {
-  margin-top: 20px;
+  margin-top: 30px; /* Increased margin for spacing */
 }
 
+/* Lift list styling */
 .lift-list {
   display: flex;
   flex-direction: column;
-  gap: 15px;
+  gap: 20px; /* Larger gap between lift items */
 }
 
 .lift-item {
-  background-color: #34495e; /* Darker background for lift items */
-  padding: 15px;
-  border-radius: 8px;
+  background-color: #000; /* Black background for lift items */
+  color: #fff; /* White text for lift items */
+  padding: 20px; /* Increased padding for lift items */
+  border-radius: 10px; /* Larger border radius for lift items */
   display: flex;
   justify-content: space-between;
   align-items: center;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 4px 8px rgba(255, 255, 255, 0.3); /* Larger shadow for depth */
+  border: 3px solid #fff; /* Thicker white border for lift items */
 }
 
 .lift-item span {
-  font-size: 18px;
+  font-size: 22px; /* Larger font size for lift item text */
   font-weight: bold;
 }
 
 .lift-item a {
   text-decoration: none;
-  color: #d4d9db; /* Match the active tab color */
+  color: #fff; /* White color for links */
   font-weight: bold;
+  font-size: 20px; /* Larger font size for link text */
 }
 
 .lift-item a:hover {
   text-decoration: underline;
-  color: #21bc21; /* Bright yellow on hover */
+  color: #ccc; /* Light gray on hover */
+}
+
+/* Update for heading */
+.leaderboard h2 {
+  font-size: 3em; /* Larger font size for heading */
+  font-weight: bold;
+  color: #fff; /* White color for text */
+  background-color: #000; /* Black background for the heading */
+  padding: 15px 30px; /* Larger padding for a better appearance */
+  border-radius: 8px; /* Larger border radius for rounded corners */
+  margin-bottom: 30px; /* Increased space below the heading */
+  text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.8); /* Stronger shadow for better visibility */
+  display: inline-block; /* Adjust the heading to fit content */
 }

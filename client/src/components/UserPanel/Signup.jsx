@@ -41,7 +41,7 @@ function Signup({ setCurrentUser }) {
         </div>
         <div className="form-container">
           <form className='user-form' onSubmit={handleSubmit}>
-            <h2>Signup</h2>
+            <h4>Signup</h4>
 
             <input
               type="text"
@@ -62,7 +62,7 @@ function Signup({ setCurrentUser }) {
               value='Signup'
             />
             
-            <p>Already have an account?</p>
+            <p2>Already have an account?</p2>
             <Link to='/login'>
               <button type="button">Login</button>
             </Link>

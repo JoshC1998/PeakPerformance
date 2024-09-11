@@ -86,7 +86,7 @@ function Workouts() {
   return (
     <div className="workouts-wrapper">
       <div className="workouts-container">
-        <h1>Workout Plans</h1>
+        <h5>Workout Plans</h5>
         <form onSubmit={handleSubmit}>
           <label>
             Choose your goal:

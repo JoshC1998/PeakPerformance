@@ -117,7 +117,7 @@ function SubmitLift({ currentUser, onLiftSubmitted }) {
 
   return (
     <div className="submit-lift">
-      <h2>Submit a New Lift</h2>
+      <h5>Submit a New Lift</h5>
       {message && <p>{message}</p>}
       <form onSubmit={handleSubmit}>
         <div>

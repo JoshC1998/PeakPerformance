@@ -10,53 +10,63 @@
 }
 
 .plan-container {
-  margin-top: 20px;
-  padding: 20px;
-  border: 1px solid #ddd;
-  border-radius: 8px;
-  background-color: rgba(177, 27, 27, 0.8); /* Slight transparency to make the text readable against the background */
+  margin-top: 40px; /* Doubled margin */
+  padding: 40px; /* Doubled padding */
+  border: 2px solid #ddd; /* Thicker border remains the same */
+  border-radius: 16px; /* Doubled border-radius */
+  background-color: rgba(0, 0, 0, 0.7); /* Darker background for better contrast */
+  color: #fff; /* White text for high contrast */
 }
 
 .plan-header {
-  font-size: 1.5em;
-  margin-bottom: 10px;
-  color: #333;
+  font-size: 3.6em; /* Doubled font size */
+  margin-bottom: 20px; /* Doubled margin */
+  color: #fff; /* White text color */
+  text-shadow: 4px 4px 8px rgba(0, 0, 0, 0.6); /* Stronger shadow */
 }
 
 .plan-content {
-  font-size: 1em;
-  line-height: 1.6;
-  color: #555;
+  font-size: 2.2em; /* Doubled font size */
+  line-height: 3.2; /* Doubled line-height */
+  color: #ddd; /* Light gray text color */
+  text-shadow: 4px 4px 8px rgba(0, 0, 0, 0.4); /* Stronger shadow */
 }
 
 .error-message {
-  color: red;
-  margin-top: 20px;
+  font-size: 3em; /* Doubled font size */
+  color: #ff6b6b; /* More visible red */
+  margin-top: 40px; /* Doubled margin */
+  font-weight: bold;
 }
 
 .loading-message {
-  margin-top: 20px;
+  font-size: 2.4em; /* Doubled font size */
+  margin-top: 40px; /* Doubled margin */
   font-style: italic;
+  color: #f0f0f0; /* Light color for readability */
 }
 
 form {
-  background-color: rgba(255, 255, 255, 0.9);
-  padding: 20px;
-  border-radius: 12px;
-  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+  background-color: rgba(0, 0, 0, 0.8); /* Darker background for form */
+  padding: 40px; /* Doubled padding */
+  border-radius: 30px; /* Doubled border-radius */
+  box-shadow: 0 16px 32px rgba(0, 0, 0, 0.4); /* Stronger shadow */
 }
 
 select, textarea, button {
-  margin-top: 10px;
+  margin-top: 20px; /* Doubled margin */
   display: block;
   width: 100%;
-  padding: 10px;
-  font-size: 1rem;
-  border-radius: 6px;
+  padding: 20px; /* Doubled padding */
+  font-size: 1.6rem; /* Doubled font size */
+  border-radius: 12px; /* Doubled border-radius */
   border: 1px solid #ddd;
+  background-color: #333; /* Dark background for form elements */
+  color: #fff; /* Light text color for form elements */
 }
 
 button {
+  font-size: 1.6rem; /* Doubled font size */
   background-color: #007bff;
   color: white;
   border: none;
@@ -70,5 +80,18 @@ button:disabled {
 
 button:hover:not(:disabled) {
   background-color: #0056b3;
+}
+
+h5 {
+  font-size: 6em; /* Doubled font size */
+  color: #fff; /* White text color */
+  text-shadow: 
+    4px 4px 0 #000,  
+    -4px -4px 0 #000,  
+    4px -4px 0 #000,  
+    -4px 4px 0 #000; /* Black outline effect */
+  margin: 0; /* Remove default margin */
+  text-align: center; /* Center-align the text */
+  font-weight: bold; /* Make the text bold */
 }
 

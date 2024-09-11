@@ -66,7 +66,7 @@ const LeaderBoard = ({ liftData }) => {
   return (
     <div className="leaderboard-container">
       <div className="leaderboard">
-        <h1>Leaderboard</h1>
+        <h2>Leaderboard</h2>
         <div className="tabs">
           <button className={activeTab === 'bench' ? 'active' : ''} onClick={() => setActiveTab('bench')}>Bench Press</button>
           <button className={activeTab === 'deadlift' ? 'active' : ''} onClick={() => setActiveTab('deadlift')}>Deadlift</button>
