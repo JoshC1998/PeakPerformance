@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Line } from 'react-chartjs-2';
 import 'chart.js/auto'; // Necessary for using Chart.js
+import './Tracker.css';
 
 function Tracker() {
   const [weight, setWeight] = useState('');
@@ -145,7 +146,7 @@ function Tracker() {
         </label>
       </div>
       {filteredData.length > 0 && (
-        <div>
+        <div className="chart-container">
           <h3>Progress Graph</h3>
           <Line data={data} />
         </div>

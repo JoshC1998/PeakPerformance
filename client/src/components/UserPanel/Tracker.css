@@ -1,0 +1,53 @@
+.tracker {
+  background-image: url('./gympic4.jpg'); /* Update the path as necessary */
+  background-size: cover;
+  background-position: center;
+  padding: 20px;
+  border-radius: 8px;
+  color: white; /* Text color for readability */
+}
+
+.tracker h2, .tracker h3 {
+  text-align: center;
+  color: #fff; /* Ensure headings are visible against the background */
+}
+
+.tracker form {
+  background: rgba(0, 0, 0, 0.5); /* Semi-transparent black background for form */
+  padding: 20px;
+  border-radius: 8px;
+  margin-bottom: 20px;
+}
+
+.tracker label {
+  display: block;
+  margin-bottom: 10px;
+}
+
+.tracker input[type="number"], .tracker select {
+  width: 100%;
+  padding: 8px;
+  border-radius: 4px;
+  border: 1px solid #ddd;
+}
+
+.tracker button {
+  background-color: #007bff; /* Button color */
+  color: white;
+  border: none;
+  padding: 10px 15px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.tracker button:hover {
+  background-color: #0056b3; /* Darker button color on hover */
+}
+
+.tracker .chart-container {
+  background: white; /* White background for the chart */
+  padding: 20px;
+  border-radius: 8px;
+  margin-top: 20px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Optional: Add shadow to lift the graph visually */
+}

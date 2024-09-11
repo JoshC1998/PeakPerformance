@@ -13,6 +13,7 @@ function SubmitLift({ currentUser, onLiftSubmitted }) {
   const [videoPreview, setVideoPreview] = useState('');
   const [message, setMessage] = useState('');
   const [loading, setLoading] = useState(false);
+  const [activeTab, setActiveTab] = useState('All'); // New state for active tab
 
   function handleVideoChange(e) {
     const file = e.target.files[0];
@@ -110,6 +111,10 @@ function SubmitLift({ currentUser, onLiftSubmitted }) {
       });
   }
 
+  const handleTabClick = (tab) => {
+    setActiveTab(tab);
+  };
+
   return (
     <div className="submit-lift">
       <h2>Submit a New Lift</h2>
@@ -187,93 +192,66 @@ function SubmitLift({ currentUser, onLiftSubmitted }) {
 
       {submittedVideos.length > 0 && (
         <div className="submitted-videos">
-          <h3>Your Submitted Videos</h3>
+          <h2>Submitted Videos</h2>
+          <div className="tabs">
+            <button
+              className={activeTab === 'All' ? 'active' : ''}
+              onClick={() => handleTabClick('All')}
+            >
+              All
+            </button>
+            <button
+              className={activeTab === 'Bench' ? 'active' : ''}
+              onClick={() => handleTabClick('Bench')}
+            >
+              Bench Press
+            </button>
+            <button
+              className={activeTab === 'Deadlift' ? 'active' : ''}
+              onClick={() => handleTabClick('Deadlift')}
+            >
+              Deadlift
+            </button>
+            <button
+              className={activeTab === 'Squat' ? 'active' : ''}
+              onClick={() => handleTabClick('Squat')}
+            >
+              Squat
+            </button>
+            <button
+              className={activeTab === 'Push-ups' ? 'active' : ''}
+              onClick={() => handleTabClick('Push-ups')}
+            >
+              Push-ups
+            </button>
+            <button
+              className={activeTab === 'Pull-ups' ? 'active' : ''}
+              onClick={() => handleTabClick('Pull-ups')}
+            >
+              Pull-ups
+            </button>
+          </div>
           <div style={{ maxHeight: '300px', overflowY: 'scroll' }}>
-
-            {/* Bench Press Videos */}
-            <div className="video-category">
-              <h4>Bench Press</h4>
-              {submittedVideos
-                .filter(video => video.type === 'Bench' && video.user === currentUser.username)
-                .map((video, index) => (
-                  <div className="video-item" key={index}>
-                    <p>{video.weight} lbs</p>
+            {submittedVideos
+              .filter(video => activeTab === 'All' || video.type === activeTab)
+              .filter(video => video.user === currentUser.username)
+              .map((video, index) => (
+                <div className="video-category" key={index}>
+                  <h4>{video.type}</h4>
+                  <div className="video-item">
+                    <p>{video.weight ? `${video.weight} lbs` : `${video.reps} reps`}</p>
                     <video controls>
                       <source src={video.videoUrl} type="video/mp4" />
                       Your browser does not support the video tag.
                     </video>
                   </div>
-                ))}
-            </div>
-
-            {/* Deadlift Videos */}
-            <div className="video-category">
-              <h4>Deadlift</h4>
-              {submittedVideos
-                .filter(video => video.type === 'Deadlift' && video.user === currentUser.username)
-                .map((video, index) => (
-                  <div className="video-item" key={index}>
-                    <p>{video.weight} lbs</p>
-                    <video controls>
-                      <source src={video.videoUrl} type="video/mp4" />
-                      Your browser does not support the video tag.
-                    </video>
-                  </div>
-                ))}
-            </div>
-
-            {/* Squat Videos */}
-            <div className="video-category">
-              <h4>Squat</h4>
-              {submittedVideos
-                .filter(video => video.type === 'Squat' && video.user === currentUser.username)
-                .map((video, index) => (
-                  <div className="video-item" key={index}>
-                    <p>{video.weight} lbs</p>
-                    <video controls>
-                      <source src={video.videoUrl} type="video/mp4" />
-                      Your browser does not support the video tag.
-                    </video>
-                  </div>
-                ))}
-            </div>
-
-            {/* Push-ups Videos */}
-            <div className="video-category">
-              <h4>Push-ups</h4>
-              {submittedVideos
-                .filter(video => video.type === 'Push-ups' && video.user === currentUser.username)
-                .map((video, index) => (
-                  <div className="video-item" key={index}>
-                    <p>{video.reps} reps</p>
-                    <video controls>
-                      <source src={video.videoUrl} type="video/mp4" />
-                      Your browser does not support the video tag.
-                    </video>
-                  </div>
-                ))}
-            </div>
-
-            {/* Pull-ups Videos */}
-            <div className="video-category">
-              <h4>Pull-ups</h4>
-              {submittedVideos
-                .filter(video => video.type === 'Pull-ups' && video.user === currentUser.username)
-                .map((video, index) => (
-                  <div className="video-item" key={index}>
-                    <p>{video.reps} reps</p>
-                    <video controls>
-                      <source src={video.videoUrl} type="video/mp4" />
-                      Your browser does not support the video tag.
-                    </video>
-                  </div>
-                ))}
-            </div>
-
+                </div>
+              ))}
           </div>
         </div>
       )}
     </div>
   );
 }
+
 export default SubmitLift;
