@@ -1,9 +1,8 @@
 import React, { useState } from 'react';
-import './Workouts.css'; // Import the CSS file if you have styling
+import './Workouts.css'; // Ensure this path is correct
 
 const API_URL = 'https://api.openai.com/v1/chat/completions';
-const API_KEY = import.meta.env.VITE_OPENAI_API_KEY;  
-console.log(API_KEY);
+const API_KEY = import.meta.env.VITE_OPENAI_API_KEY; // Use your API key from environment variables
 
 function Workouts() {
   const [goal, setGoal] = useState('');
@@ -85,74 +84,81 @@ function Workouts() {
   };
 
   return (
-    <div>
-      <h1>Workout Plans</h1>
-      <form onSubmit={handleSubmit}>
-        <label>
-          Choose your goal:
-          <select value={goal} onChange={handleGoalChange} disabled={loading}>
-            <option value="">Select a goal</option>
-            <option value="weight loss">Weight Loss</option>
-            <option value="weight gain">Weight Gain</option>
-            <option value="strength">Strength</option>
-          </select>
-        </label>
-
-        {goal && (
+    <div className="workouts-wrapper">
+      <div className="workouts-container">
+        <h1>Workout Plans</h1>
+        <form onSubmit={handleSubmit}>
           <label>
-            Choose a detail:
-            <select value={detail} onChange={handleDetailChange} disabled={loading}>
-              <option value="">Select a detail</option>
-              {goal === 'weight loss' && (
-                <>
-                  <option value="fat loss">Fat Loss</option>
-                  <option value="toning">Toning</option>
-                </>
-              )}
-              {goal === 'weight gain' && (
-                <>
-                  <option value="muscle gain">Muscle Gain</option>
-                  <option value="bulk">Bulking</option>
-                </>
-              )}
-              {goal === 'strength' && (
-                <>
-                  <option value="powerlifting">Powerlifting</option>
-                  <option value="general strength">General Strength</option>
-                </>
-              )}
+            Choose your goal:
+            <select value={goal} onChange={handleGoalChange} disabled={loading}>
+              <option value="">Select a goal</option>
+              <option value="weight loss">Weight Loss</option>
+              <option value="weight gain">Weight Gain</option>
+              <option value="strength">Strength</option>
             </select>
           </label>
+
+          {goal && (
+            <label>
+              Choose a detail:
+              <select value={detail} onChange={handleDetailChange} disabled={loading}>
+                <option value="">Select a detail</option>
+                {goal === 'weight loss' && (
+                  <>
+                    <option value="fat loss">Fat Loss</option>
+                    <option value="toning">Toning</option>
+                  </>
+                )}
+                {goal === 'weight gain' && (
+                  <>
+                    <option value="muscle gain">Muscle Gain</option>
+                    <option value="bulk">Bulking</option>
+                  </>
+                )}
+                {goal === 'strength' && (
+                  <>
+                    <option value="powerlifting">Powerlifting</option>
+                    <option value="general strength">General Strength</option>
+                  </>
+                )}
+              </select>
+            </label>
+          )}
+
+          <label>
+            Or type your own prompt:
+            <textarea
+              value={userPrompt}
+              onChange={handlePromptChange}
+              disabled={loading}
+              placeholder="Type your custom workout prompt here..."
+            />
+          </label>
+
+          <button type="submit" disabled={loading}>
+            {loading ? 'Loading...' : 'Get Workout Plan'}
+          </button>
+        </form>
+
+        {error && (
+          <div className="error-message">
+            <p>{error}</p>
+          </div>
         )}
 
-        <label>
-          Or type your own prompt:
-          <textarea value={userPrompt} onChange={handlePromptChange} disabled={loading} placeholder="Type your custom workout prompt here..." />
-        </label>
+        {loading && (
+          <div className="loading-message">
+            <p>Loading your workout plan...</p>
+          </div>
+        )}
 
-        <button type="submit" disabled={loading}>
-          {loading ? 'Loading...' : 'Get Workout Plan'}
-        </button>
-      </form>
-
-      {error && (
-        <div className="error-message">
-          <p>{error}</p>
-        </div>
-      )}
-
-      {loading && (
-        <div className="loading-message">
-          <p>Loading your workout plan...</p>
-        </div>
-      )}
-
-      {plan && (
-        <div className="plan-container">
-          <h2 className="plan-header">Your Workout Plan:</h2>
-          <p className="plan-content">{plan}</p>
-        </div>
-      )}
+        {plan && (
+          <div className="plan-container">
+            <h2 className="plan-header">Your Workout Plan:</h2>
+            <p className="plan-content">{plan}</p>
+          </div>
+        )}
+      </div>
     </div>
   );
 }

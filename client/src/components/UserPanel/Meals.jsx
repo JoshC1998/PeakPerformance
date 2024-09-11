@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import './Meals.css'; // Make sure to import the CSS file
 
 const API_URL = 'https://api.openai.com/v1/chat/completions';
 const API_KEY = import.meta.env.VITE_OPENAI_API_KEY;
@@ -46,51 +47,54 @@ function Meals() {
   };
 
   return (
-    <div className="meals-container">
-      <h1>Meal Plan Generator</h1>
-      <p>Select your goal:</p>
-      <div className="goal-selection">
-        <label>
-          <input
-            type="radio"
-            value="bulk"
-            checked={goal === 'bulk'}
-            onChange={handleGoalChange}
-          />
-          Bulk
-        </label>
-        <label>
-          <input
-            type="radio"
-            value="cut"
-            checked={goal === 'cut'}
-            onChange={handleGoalChange}
-          />
-          Cut
-        </label>
-        <label>
-          <input
-            type="radio"
-            value="maintain"
-            checked={goal === 'maintain'}
-            onChange={handleGoalChange}
-          />
-          Maintain
-        </label>
-      </div>
-
-      <button onClick={fetchMealPlan} disabled={loading || !goal}>
-        {loading ? 'Generating Meal Plan...' : 'Get Meal Plan'}
-      </button>
-
-      {mealPlan && (
-        <div className="meal-plan">
-          <h2>Your Meal Plan:</h2>
-          <pre>{mealPlan}</pre>
+    <div className="meals-wrapper"> {/* New wrapper for the background */}
+      <div className="meals-container">
+        <h1>Meal Plan Generator</h1>
+        <p>Select your goal:</p>
+        <div className="goal-selection">
+          <label>
+            <input
+              type="radio"
+              value="bulk"
+              checked={goal === 'bulk'}
+              onChange={handleGoalChange}
+            />
+            Bulk
+          </label>
+          <label>
+            <input
+              type="radio"
+              value="cut"
+              checked={goal === 'cut'}
+              onChange={handleGoalChange}
+            />
+            Cut
+          </label>
+          <label>
+            <input
+              type="radio"
+              value="maintain"
+              checked={goal === 'maintain'}
+              onChange={handleGoalChange}
+            />
+            Maintain
+          </label>
         </div>
-      )}
+
+        <button onClick={fetchMealPlan} disabled={loading || !goal}>
+          {loading ? 'Generating Meal Plan...' : 'Get Meal Plan'}
+        </button>
+
+        {mealPlan && (
+          <div className="meal-plan">
+            <h2>Your Meal Plan:</h2>
+            <pre>{mealPlan}</pre>
+          </div>
+        )}
+      </div>
     </div>
   );
 }
 
 export default Meals;
+
