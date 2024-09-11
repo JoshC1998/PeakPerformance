@@ -1,15 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import { Routes, Route, Navigate, useLocation } from 'react-router-dom';
 import NavBar from './NavBar';
-import UserDetails from './UserPanel/UserDetails';
 import Login from './UserPanel/Login';
 import Signup from './UserPanel/Signup';
 import SubmitLift from './UserPanel/SubmitLifts';
 import Tracker from './UserPanel/Tracker';
 import Workouts from './UserPanel/Workouts';
 import LeaderBoard from './UserPanel/LeaderBoard';
-import { VideoProvider } from './UserPanel/VideoContext'; 
 import Meals from './UserPanel/Meals';
+import Home from './UserPanel/home';  // Import the Home component
+import { VideoProvider } from './UserPanel/VideoContext';
 
 const API_URL = 'http://localhost:5555'; 
 
@@ -78,7 +78,7 @@ function App() {
         <Routes>
           <Route path="/" element={
             currentUser ? 
-            <UserDetails currentUser={currentUser} setCurrentUser={setCurrentUser} /> : 
+            <Home currentUser={currentUser} handleLogout={handleLogout} /> : 
             <Navigate to="/login" />
           } />
           <Route path="/login" element={<Login setCurrentUser={setCurrentUser} />} />
