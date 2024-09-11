@@ -64,17 +64,19 @@ const LeaderBoard = ({ liftData }) => {
   };
 
   return (
-    <div className="leaderboard">
-      <h1>Leaderboard</h1>
-      <div className="tabs">
-        <button className={activeTab === 'bench' ? 'active' : ''} onClick={() => setActiveTab('bench')}>Bench Press</button>
-        <button className={activeTab === 'deadlift' ? 'active' : ''} onClick={() => setActiveTab('deadlift')}>Deadlift</button>
-        <button className={activeTab === 'squat' ? 'active' : ''} onClick={() => setActiveTab('squat')}>Squat</button>
-        <button className={activeTab === 'push-ups' ? 'active' : ''} onClick={() => setActiveTab('push-ups')}>Push-Ups</button>
-        <button className={activeTab === 'pull-ups' ? 'active' : ''} onClick={() => setActiveTab('pull-ups')}>Pull-Ups</button>
-      </div>
-      <div className="tab-content">
-        {renderTabContent()}
+    <div className="leaderboard-container">
+      <div className="leaderboard">
+        <h1>Leaderboard</h1>
+        <div className="tabs">
+          <button className={activeTab === 'bench' ? 'active' : ''} onClick={() => setActiveTab('bench')}>Bench Press</button>
+          <button className={activeTab === 'deadlift' ? 'active' : ''} onClick={() => setActiveTab('deadlift')}>Deadlift</button>
+          <button className={activeTab === 'squat' ? 'active' : ''} onClick={() => setActiveTab('squat')}>Squat</button>
+          <button className={activeTab === 'push-ups' ? 'active' : ''} onClick={() => setActiveTab('push-ups')}>Push-Ups</button>
+          <button className={activeTab === 'pull-ups' ? 'active' : ''} onClick={() => setActiveTab('pull-ups')}>Pull-Ups</button>
+        </div>
+        <div className="tab-content">
+          {renderTabContent()}
+        </div>
       </div>
     </div>
   );
