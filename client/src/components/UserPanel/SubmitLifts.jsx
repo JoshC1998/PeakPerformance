@@ -178,14 +178,12 @@ function SubmitLift({ currentUser, onLiftSubmitted }) {
         </div>
         {videoPreview && (
           <div>
-            <h3>Video Preview:</h3>
-            <video width="300" controls>
-              <source src={videoPreview} type={video.type} />
-              Your browser does not support the video tag.
+          <h3>Video Preview:</h3>
+            <video width="300" controls src={videoPreview}>
+             Your browser does not support the video tag.
             </video>
-        </div>
-        )}
-
+            </div>
+          )}
         <button type="submit" disabled={loading}>
           {loading ? 'Submitting...' : 'Submit Lift'}
         </button>
