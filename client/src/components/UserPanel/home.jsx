@@ -1,6 +1,6 @@
 // UserPanel/Home.jsx
 import React from 'react';
-import './home.css';
+import '../design/home.css';
 
 function Home({ currentUser, handleLogout }) {
   return (

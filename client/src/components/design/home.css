@@ -1,6 +1,6 @@
 /* UserPanel/home.css */
 .home-page {
-    background-image: url('./gympic7.jpg'); /* Path to your image */
+    background-image: url('../wallpaper/gympic7.jpg'); /* Path to your image */
     background-size: cover; /* Ensure the image covers the entire container */
     background-position: center; /* Center the image */
     background-repeat: no-repeat; /* Prevent the image from repeating */

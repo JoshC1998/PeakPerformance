@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useVideo } from './VideoContext'; 
-import './SubmitLift.css'; // Assuming you have the CSS file for styling
+import '../design/SubmitLift.css'; // Assuming you have the CSS file for styling
 
 const API_URL = 'http://localhost:5555'; 
 

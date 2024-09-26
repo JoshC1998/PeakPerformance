@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import './Meals.css'; // Make sure to import the CSS file
+import '../design/Meals.css'; // Make sure to import the CSS file
 
 const API_URL = 'https://api.openai.com/v1/chat/completions';
 const API_KEY = import.meta.env.VITE_OPENAI_API_KEY;

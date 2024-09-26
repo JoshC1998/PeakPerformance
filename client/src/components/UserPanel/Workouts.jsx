@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import './Workouts.css'; // Ensure this path is correct
+import '../design/Workouts.css'; // Ensure this path is correct
 
 const API_URL = 'https://api.openai.com/v1/chat/completions';
 const API_KEY = import.meta.env.VITE_OPENAI_API_KEY; // Use your API key from environment variables

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Line } from 'react-chartjs-2';
 import 'chart.js/auto'; // Necessary for using Chart.js
-import './Tracker.css';
+import '../design/Tracker.css';
 
 function Tracker() {
   const [weight, setWeight] = useState('');

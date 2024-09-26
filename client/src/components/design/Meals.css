@@ -4,7 +4,7 @@
     justify-content: center;
     align-items: center;
     height: 100vh;
-    background-image: url('./gympic5.jpg'); /* Update this path */
+    background-image: url('../wallpaper/gympic5.jpg'); /* Update this path */
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;

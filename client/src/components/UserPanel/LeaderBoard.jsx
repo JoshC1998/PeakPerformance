@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import './LeaderBoard.css'; // We'll create a CSS file for styles
+import '../design/LeaderBoard.css'; // We'll create a CSS file for styles
 
 const LeaderBoard = ({ liftData }) => {
   const [activeTab, setActiveTab] = useState('bench'); // Set default tab

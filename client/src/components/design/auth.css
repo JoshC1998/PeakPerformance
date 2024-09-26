@@ -1,7 +1,7 @@
 .auth-background {
   margin: 0;
   padding: 0;
-  background: url('./gympic.jpg') no-repeat center center fixed; /* Background image */
+  background: url('../wallpaper/gympic.jpg') no-repeat center center fixed; /* Background image */
   background-size: cover; /* Cover the entire screen */
   font-family: Arial, sans-serif;
 }
