@@ -8,7 +8,23 @@
   background-position: center;
   background-repeat: no-repeat;
 }
+label {
+  font-size: 1.7em; /* Larger font size for readability */
+  color: #fff; /* White text color for contrast against dark background */
+  margin-top: 20px; /* Space between the label and the input */
+  display: block; /* Ensures the label occupies full width */
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); /* Subtle shadow for text readability */
+}
 
+label select,
+label textarea,
+label input[type="number"] {
+  margin-top: 10px; /* Space between the label text and the form element */
+}
+
+label:focus-within {
+  color: #007bff; /* Highlight color for labels when their input is focused */
+}
 .plan-container {
   margin-top: 40px; /* Doubled margin */
   padding: 40px; /* Doubled padding */
