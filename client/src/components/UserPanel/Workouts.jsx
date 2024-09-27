@@ -11,6 +11,8 @@ function Workouts() {
   const [plan, setPlan] = useState('');
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
+  const [currentWeight, setCurrentWeight] = useState('');
+  const [targetWeight, setTargetWeight] = useState('');
 
   const handleGoalChange = (event) => {
     setGoal(event.target.value);
@@ -23,6 +25,14 @@ function Workouts() {
 
   const handlePromptChange = (event) => {
     setUserPrompt(event.target.value);
+  };
+
+  const handleCurrentWeightChange = (event) => {
+    setCurrentWeight(event.target.value);
+  };
+
+  const handleTargetWeightChange = (event) => {
+    setTargetWeight(event.target.value);
   };
 
   const fetchWorkoutPlan = async () => {
@@ -45,7 +55,7 @@ function Workouts() {
             },
             {
               role: "user",
-              content: userPrompt || `Create a detailed workout plan for someone aiming for ${goal}. Focus on ${detail || 'a general workout'}.`
+              content: userPrompt || `Create a detailed workout plan for someone aiming for ${goal}. Focus on ${detail || 'a general workout'}. Their current weight is ${currentWeight} lbs and their target weight is ${targetWeight} lbs.`
             }
           ],
           max_tokens: 200,
@@ -132,6 +142,28 @@ function Workouts() {
               onChange={handlePromptChange}
               disabled={loading}
               placeholder="Type your custom workout prompt here..."
+            />
+          </label>
+
+          <label>
+            Current weight (lbs):
+            <input
+              type="number"
+              value={currentWeight}
+              onChange={handleCurrentWeightChange}
+              disabled={loading}
+              placeholder="Enter your current weight"
+            />
+          </label>
+
+          <label>
+            Target weight (lbs):
+            <input
+              type="number"
+              value={targetWeight}
+              onChange={handleTargetWeightChange}
+              disabled={loading}
+              placeholder="Enter your target weight"
             />
           </label>
 
