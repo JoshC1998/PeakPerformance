@@ -1,0 +1,58 @@
+/* Ensure the body and html take up the full height and allow scrolling */
+html, body {
+    height: 100%;
+    margin: 0; /* Remove any default margin */
+    padding: 0; /* Remove any default padding */
+    overflow-y: auto; /* Enable vertical scrolling */
+    overflow-x: hidden; /* Prevent horizontal scrolling if not needed */
+}
+
+/* Background setup for main containers */
+
+/* General container settings for flexibility and scrolling */
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start; /* Start from the top */
+    min-height: 100vh; /* Full height for all containers */
+    padding: 20px; /* Add padding to avoid sticking to edges */
+}
+
+/* Fix for navbar or other fixed elements */
+.navbar {
+    position: fixed; /* Keep the navbar fixed at the top */
+    width: 100%; /* Full width */
+    z-index: 1000; /* Ensure it's above other content */
+}
+
+/* Additional CSS for scrolling in specific sections */
+.section {
+    padding: 20px;
+    overflow-y: auto; /* Enable scrolling for sections if they have more content */
+    max-height: calc(100vh - 80px); /* Adjust based on the height of the fixed navbar */
+}
+
+/* Handle different types of forms and containers */
+.form-container,
+.auth-container,
+.content-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 40px;
+    margin: 0;
+    overflow-y: auto; /* Ensure these containers can scroll */
+}
+
+/* Ensure no unintended overflow */
+*, *::before, *::after {
+    box-sizing: border-box; /* Consistent box-sizing */
+}
+
+/* Utility class to fix overflow issues */
+.fix-overflow {
+    overflow-y: auto; /* Enable vertical scrolling */
+    overflow-x: hidden; /* Prevent horizontal scrolling */
+}

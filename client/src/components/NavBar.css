@@ -1,4 +1,4 @@
-/* Container for the Navbar */
+/* Navbar Container */
 .navbar {
   display: flex;
   align-items: center;
@@ -14,12 +14,13 @@
   z-index: 1000; /* Ensures the navbar is above other content */
 }
 
-/* Ensure the main content is not hidden behind the navbar */
+/* Adjust body margin to accommodate the fixed navbar */
 body {
   margin: 0;
-  padding-top: 80px; /* Adjust based on the navbar height */
+  padding: 0;
 }
 
+/* Navbar Links */
 .navbar a {
   display: flex;
   align-items: center;
@@ -60,7 +61,7 @@ body {
   right: -60px; /* Adjust to position the right side of the dumbbell */
 }
 
-/* Hover and active states */
+/* Hover and active states for navbar links */
 .navbar a:hover {
   background-color: #555; /* Slightly lighter gray on hover */
   color: #ffffff;
@@ -68,17 +69,4 @@ body {
 
 .navbar a.active {
   background-color: #555; /* Slightly lighter gray for the active state */
-}
-
-.parent-container {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 100%;
-}
-
-.title {
-  font-size: 24px;
-  color: white;
-  text-align: center;
 }
