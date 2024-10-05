@@ -11,15 +11,6 @@ This application allows users to sign up, log in, and submit workouts, including
 - **Progress Tracking**: Generate and view graphs to track your progress over time.
 - **Leaderboard**: View the top scores for each workout and compare your performance with others.
 
-## Project Structure
-
-This project uses a Flask backend and a Vite-powered frontend.
-
-. ├── client/ # Frontend code (React, Vite) ├── server/ # Backend code (Flask) ├── README.md ├── Pipfile # Python dependencies for Flask ├── Pipfile.lock ├── package.json # npm dependencies for Vite └── ...
-
-markdown
-Copy code
-
 ## Setup and Installation
 
 ### Prerequisites
