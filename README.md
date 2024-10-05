@@ -66,11 +66,6 @@ Make sure you have the following installed:
     npm run dev --prefix client
     ```
 
-### Access the Application
-
-- **Backend**: By default, the Flask backend runs at [http://127.0.0.1:5000](http://127.0.0.1:5000).
-- **Frontend**: By default, the Vite frontend runs at [http://127.0.0.1:3000](http://127.0.0.1:3000).
-
 ## Data Storage
 
 The application uses SQL for data storage, with the backend handling data models and interactions using Flask's model frameworks like SQLAlchemy. This allows for structured data storage and easy querying of workout records, user details, and leaderboard information.
